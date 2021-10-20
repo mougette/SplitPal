@@ -1,21 +1,107 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Signin from './src/screens/Signin';
+import Signup from "./src/screens/Signup";
+import HomeScreen from './src/screens/HomeScreen';
+import Friends from './src/screens/Friends';
+import Split from './src/screens/Split';
+import Groups from './src/screens/Groups';
+import Profile from './src/screens/Profile';
+import {Provider as AuthProvider} from './src/context/AuthContext.js';
+import {Context as AuthContext} from './src/context/AuthContext';
 
-export default function App() {
+const AuthStack = createStackNavigator();
+function authFlow() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Signin"
+        component={Signin}
+      />
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Signup"
+        component={Signup}
+      />
+    </AuthStack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Tab = createBottomTabNavigator();
+function homeFlow() {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+            //determine which icon to display based on which tab use is in
+            switch (route.name) {
+                case "HomeScreen":
+                    iconName = focused ? "home" : "home-outline";
+                    break;
+                case "Friends":
+                    iconName = focused ? "person" : "person-outline";
+                    break;
+                case "Split":
+                    iconName = focused ? "wallet" : "wallet-outline";
+                    break;
+                case "Groups":
+                    iconName = focused ? "people" : "people-outline";
+                    break;
+                case "Profile":
+                    iconName = focused ? "person-circle" : "person-circle-outline";
+                    break;
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+        },
+          tabBarActiveTintColor: "tomato",
+          tabBarInactiveTintColor: "gray",
+      })}
+    >
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="Friends" component={Friends} />
+      <Tab.Screen name="Split" component={Split} />
+      <Tab.Screen name="Groups" component={Groups} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
+  );
+}
+
+const Stack = createStackNavigator();
+function App() {
+  const {state} = React.useContext(AuthContext);
+  console.log(state);
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {state.token === null ? (
+          <>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Auth"
+              component={authFlow}
+            />
+          </>
+        ) : (
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="Home"
+            component={homeFlow}
+          />
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};

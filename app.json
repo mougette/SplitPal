@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SplitPal",
-    "slug": "SplitPal",
+    "name": "AuthTest",
+    "slug": "AuthTest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
