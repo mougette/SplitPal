@@ -72,7 +72,7 @@ const HomeScreen = ({navigation}) => {
       <Text style={styles.header}>Grand Total</Text>
 
       <View style={styles.listItem}>
-        <View style={{alignItems:"left", justifyContent: 'center', marginLeft: 25, flex:1}}>
+        <View style={{justifyContent: 'center', marginLeft: 25, flex:1}}>
           <Text style={{fontWeight:"bold"}}>{str}</Text>
         </View>
         <TouchableOpacity style={[styles.textButton, {backgroundColor: color}]}>
