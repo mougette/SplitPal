@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
   },
   headerBlue: {
     fontSize: 48,
-    marginBottom: 18,
+    marginBottom: 10,
     color: '#3B5AAA',
     alignSelf: 'center',
     fontWeight: 'bold',
   },
   headerGray: {
       fontSize: 48,
-      marginBottom: 18,
+      marginBottom: 10,
       color: '#454851',
       alignSelf: 'center',
       fontWeight: 'bold',

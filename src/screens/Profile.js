@@ -9,6 +9,7 @@ const Profile = ({navigation}) => {
   return (
     <View style={styles.master}>
       <Text style={styles.header}>TODO: Profile Screen</Text>
+      <Text style={{fontSize: 28}}>Welcome, {state.email}</Text>
       <Button onPress={signout} title="Ready to Sign out?" type="clear" />
     </View>
   );
