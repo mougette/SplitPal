@@ -1,5 +1,6 @@
 import createDataContext from './createDataContext';
-
+import Post from '../components/RestPost';
+import Get from '../components/RestGet';
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'signout':
@@ -16,15 +17,24 @@ const authReducer = (state, action) => {
 };
 
 const signup = dispatch => {
-  return ({email, password}) => {
-    console.log('Signup');
+  return ({email, password, password2}) => {
+    Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/login",
+                JSON.stringify({
+                 email: email,
+                 password: password,
+                 password2: password2,
+                 firstName: "NULL",
+                 lastName: "NULL",
+                 phoneNumber: "NULL",
+                 }))
   };
 };
 
 const signin = dispatch => {
   return ({email, password}) => {
     // Do some API Request here
-    console.log('Signin');
+    accountInfo = Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/login","?email="+email+"&password="+password)
+    console.log(accountInfo);
     dispatch({
       type: 'signin',
       payload: {

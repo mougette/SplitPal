@@ -4,7 +4,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 import Entry from "../components/EntryComponent";
 import Post from '../components/RestPost';
-
+import Get from '../components/RestGet';
 const DATA = [
   {
     id: '1',
@@ -63,11 +63,11 @@ const HomeScreen = ({navigation}) => {
             name={item.item.name}
             balance={item.item.balance}
             onPress = {() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/transaction",
-            {"userOwed" : state.name,
-             "userOwes" : item.item.name,
-             "amount" : item.item.balance,
-             "recieptID" : "NULL"
-             })}
+            JSON.stringify({userOwed : state.name,
+             userOwes : item.item.name,
+             amount : item.item.balance,
+             recieptID : "NULL"
+             }))}
         ></Entry>
     );
   };

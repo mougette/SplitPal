@@ -9,7 +9,7 @@ const Signup = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  const {state, signin} = useContext(AuthContext);
+  const {state, signup} = useContext(AuthContext);
 
   return (
     <View style={styles.master}>
@@ -46,7 +46,7 @@ const Signup = ({navigation}) => {
         title="Login"
         type="clear"
         onPress={() => {
-          signin({email, password});
+          signup({email, password, password2});
         }}
       />
       <View style={styles.link}>
