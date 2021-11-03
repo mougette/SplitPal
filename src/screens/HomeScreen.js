@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity, FlatList, SafeAreaView}
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 import Entry from "../components/EntryComponent";
+import Post from '../components/RestPost';
 
 const DATA = [
   {
@@ -61,7 +62,12 @@ const HomeScreen = ({navigation}) => {
             image={item.item.image}
             name={item.item.name}
             balance={item.item.balance}
-            onPress = { () => console.log("Yo!") }
+            onPress = {() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/transaction",
+            {"userOwed" : state.name,
+             "userOwes" : item.item.name,
+             "amount" : item.item.balance,
+             "recieptID" : "NULL"
+             })}
         ></Entry>
     );
   };

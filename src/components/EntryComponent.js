@@ -26,7 +26,7 @@ const Entry = (props) => {
             <View style={{alignItems:"center", justifyContent: 'center', flex:1}}>
                 <Text style={{fontWeight:"bold"}}>{props.name}</Text>
             </View>
-            <TouchableOpacity style={[styles.textButton, {backgroundColor: color}]} onPress={props.onPress()}>
+            <TouchableOpacity style={[styles.textButton, {backgroundColor: color}]} onPress={props.onPress}>
                 <Text style={{color: "white", fontSize: 18}}>{props.balance}</Text>
             </TouchableOpacity>
         </View>
