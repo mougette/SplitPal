@@ -6,7 +6,7 @@ export function Get(url, quearyString){
                  .then((response) => response.json())
                  .catch((error) => console.warn("fetch error:", error))
                  .then((responseData) => {
-                 if(responseData != "User info correct"){
+                 if(responseData == "UserName or Password is incorrect"){
                     alert(responseData)
                  }
                    return responseData;

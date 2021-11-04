@@ -1,36 +1,28 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, TouchableOpacity, ImageBackground} from 'react-native';
 import Entry from "../components/EntryComponent";
 import SearchAndAdd from "../components/SearchAndAddComponent";
 import {Get} from '../components/RestGet';
 import { Context as AuthContext } from "../context/AuthContext";
-const DATA2 = [
-  {
-    id: '1',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Sam',
-    balance: 'Accept',
-  },
-  {
-    id: '2',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Max',
-    balance: 'Pending',
-  },
-];
 
 const Friends = ({navigation}) => {
 const { state, setState2 } = useContext(AuthContext);
 const [DATA, setDATA] = useState("");
+const [DATA2, setDATA2] = useState("");
+useEffect(() => {
 Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend","?user="+state.email)
-   .then(response => setDATA(response));
-console.log(DATA)
-  const renderItem = ( item ) => {
+   .then(response => setDATA(JSON.parse(response)));
+Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request","?user="+state.email)
+   .then(response => setDATA2(JSON.parse(response)));
+},[]);
+  const renderItem = ( {item,index} ) => {
+  console.log(DATA2)
+  console.log(DATA)
     return (
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
-            name={item.item.FirstName+item.item.LastName}
-            balance={"Split"}
+            name={item.FirstName+item.LastName}
+            balance={item.Balance}
             onPress = { () => console.log("Yo!") }
         ></Entry>
     );
@@ -43,6 +35,7 @@ console.log(DATA)
           <FlatList
               data={DATA}
               renderItem={renderItem}
+              keyExtractor = {(item, index) => index.toString()}
           />
         </SafeAreaView>
         <Text style={styles.header}>Pending Requests</Text>
@@ -50,6 +43,7 @@ console.log(DATA)
           <FlatList
               data={DATA2}
               renderItem={renderItem}
+              keyExtractor = {(item, index) => index.toString()}
           />
         </SafeAreaView>
     </View>
