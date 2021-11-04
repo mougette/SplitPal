@@ -1,48 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, TouchableOpacity, ImageBackground} from 'react-native';
 import Entry from "../components/EntryComponent";
-import SearchAndAdd from "../components/SearchAndAddComponent";
+import AddFriendBar from "../components/AddFriendBar";
+import {Get} from '../components/RestGet';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
+import { Context as AuthContext } from "../context/AuthContext";
+
 
 const AddFriend = ({navigation}) => {
-
-  const renderItem = ( item ) => {
+    const { state, setState2 } = useContext(AuthContext);
+    const [DATA2, setDATA2] = useState("");
+    useEffect(() => {
+    Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request","?user="+state.email)
+       .then(response => setDATA2(JSON.parse(response)));
+    },[]);
+  const renderItem = ( {item, index} ) => {
     return (
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
-            name={item.item.name}
-            balance={item.item.balance}
+            name={item.FirstName+item.LastName}
+            balance={item.Balance}
             onPress = { () => console.log("Yo!") }
         ></Entry>
     );
   };
-const DATA2 = [
-  {
-    id: '1',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Sam',
-    balance: 'Accept',
-  },
-  {
-    id: '2',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Max',
-    balance: 'Pending',
-  },
-];
   return (
     <View style={styles.master}>
     <View style={{ alignItems: "center", marginTop: 10 }}>
                   <SplitPalLogoComponent/>
      </View>
-        <SearchAndAdd search={"Enter Friend's Email"} button = {"Add Friend"} onPress = { () => console.log("Searching Friends") } />
+        <AddFriendBar search={"Enter Friend's Email"} button = {"Add Friend"} email={state.email}/>
         <Text style={styles.header}>Pending Requests</Text>
         <SafeAreaView style={styles.containerBot}>
           <FlatList
               data={DATA2}
               renderItem={renderItem}
-              keyExtractor={(item) => item.id}
+              keyExtractor = {(item, index) => index.toString()}
           />
+              <TouchableOpacity onPress={() => navigation.navigate("Friend")}>
+                    <Text style={styles.blueText}>Back.</Text>
+              </TouchableOpacity>
         </SafeAreaView>
    </View>
   );
@@ -58,6 +55,11 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 32,
   },
+  blueText: {
+      fontSize: 16,
+      marginTop: 16,
+      color: '#349beb',
+    },
   blueTextButton: {
     fontSize: 20,
     borderWidth: 1,
