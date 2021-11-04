@@ -39,7 +39,7 @@ function groupFlow() {
         <GroupStack.Navigator>
             <GroupStack.Screen
                 options={{headerShown: false}}
-                name="Groups"
+                name="Group"
                 component={Groups}
             />
             <GroupStack.Screen

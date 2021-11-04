@@ -1,11 +1,16 @@
+import React, { useState} from "react";
 import createDataContext from './createDataContext';
 import Post from '../components/RestPost';
-import Get from '../components/RestGet';
+import {Get} from '../components/RestGet';
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'signout':
       return {token: null, email: ''};
     case 'signin':
+    return {
+            email: action.payload.email,
+            token: action.payload.token,
+          };
     case 'signup':
       return {
         token: action.payload.token,
@@ -31,10 +36,12 @@ const signup = dispatch => {
 };
 
 const signin = dispatch => {
+const [account, setAccount] = useState("");
   return ({email, password}) => {
     // Do some API Request here
-    accountInfo = Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/login","?email="+email+"&password="+password)
-    console.log(accountInfo);
+   Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/login","?email="+email+"&password="+password)
+   .then(response => setAccount(response));
+    if(account == "User info correct"){
     dispatch({
       type: 'signin',
       payload: {
@@ -42,6 +49,7 @@ const signin = dispatch => {
         email,
       },
     });
+    }
   };
 };
 
