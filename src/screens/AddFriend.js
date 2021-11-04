@@ -2,51 +2,20 @@ import React, { useState } from 'react';
 import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, TouchableOpacity, ImageBackground} from 'react-native';
 import Entry from "../components/EntryComponent";
 import SearchAndAdd from "../components/SearchAndAddComponent";
+import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 
-const DATA = [
-  {
-    id: '1',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Eliot',
-    balance: 'Split',
-  },
-  {
-    id: '2',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Abby',
-    balance: 'Split',
-  },
-  {
-    id: '3',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Joe',
-    balance: "Split",
-  },
-  {
-    id: '4',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Kevin',
-    balance: 'Split',
-  },
-  {
-    id: '5',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Matt',
-    balance: 'Split',
-  },
-  {
-    id: '6',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Nick',
-    balance: "Split",
-  },
-  {
-    id: '7',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Steven',
-    balance: 'Split',
-  },
-];
+const AddFriend = ({navigation}) => {
+
+  const renderItem = ( item ) => {
+    return (
+        <Entry
+            image='https://reactnative.dev/img/tiny_logo.png'
+            name={item.item.name}
+            balance={item.item.balance}
+            onPress = { () => console.log("Yo!") }
+        ></Entry>
+    );
+  };
 const DATA2 = [
   {
     id: '1',
@@ -61,29 +30,12 @@ const DATA2 = [
     balance: 'Pending',
   },
 ];
-
-const Friends = ({navigation}) => {
-
-  const renderItem = ( item ) => {
-    return (
-        <Entry
-            image='https://reactnative.dev/img/tiny_logo.png'
-            name={item.item.name}
-            balance={item.item.balance}
-            onPress = { () => console.log("Yo!") }
-        ></Entry>
-    );
-  };
-
   return (
     <View style={styles.master}>
-      <SearchAndAdd search={"Search Friends"} button={"Add Friend"} onPress = { () => navigation.navigate("Add Friends") } />
-        <SafeAreaView style={styles.containerTop}>
-          <FlatList
-              data={DATA}
-              renderItem={renderItem}
-          />
-        </SafeAreaView>
+    <View style={{ alignItems: "center", marginTop: 10 }}>
+                  <SplitPalLogoComponent/>
+     </View>
+        <SearchAndAdd search={"Enter Friend's Email"} button = {"Add Friend"} onPress = { () => console.log("Searching Friends") } />
         <Text style={styles.header}>Pending Requests</Text>
         <SafeAreaView style={styles.containerBot}>
           <FlatList
@@ -92,7 +44,7 @@ const Friends = ({navigation}) => {
               keyExtractor={(item) => item.id}
           />
         </SafeAreaView>
-    </View>
+   </View>
   );
 };
 
@@ -148,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Friends;
+export default AddFriend;

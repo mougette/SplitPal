@@ -7,11 +7,11 @@ import Signin from './src/screens/Signin';
 import Signup from "./src/screens/Signup";
 import HomeScreen from './src/screens/HomeScreen';
 import Friends from './src/screens/Friends';
-import AddFriends from './src/screens/AddFriends';
 import Split from './src/screens/Split';
 import Groups from './src/screens/Groups';
 import AddGroups from './src/screens/AddGroups';
 import Profile from './src/screens/Profile';
+import AddFriend from './src/screens/AddFriend';
 import {Provider as AuthProvider} from './src/context/AuthContext.js';
 import {Context as AuthContext} from './src/context/AuthContext';
 
@@ -33,24 +33,6 @@ function authFlow() {
   );
 }
 
-const FriendStack = createStackNavigator();
-function friendFlow() {
-    return (
-        <FriendStack.Navigator>
-            <FriendStack.Screen
-                options={{headerShown: false}}
-                name="Friends"
-                component={Friends}
-            />
-            <FriendStack.Screen
-                options={{headerShown: false}}
-                name="AddFriends"
-                component={AddFriends}
-            />
-        </FriendStack.Navigator>
-    );
-}
-
 const GroupStack = createStackNavigator();
 function groupFlow() {
     return (
@@ -67,6 +49,23 @@ function groupFlow() {
             />
         </GroupStack.Navigator>
     );
+}
+const FriendStack = createStackNavigator();
+function friendFlow() {
+  return (
+    <FriendStack.Navigator>
+      <FriendStack.Screen
+        options={{headerShown: false}}
+        name="Friend"
+        component={Friends}
+      />
+      <FriendStack.Screen
+        options={{headerShown: false}}
+        name="Add Friends"
+        component={AddFriend}
+      />
+    </FriendStack.Navigator>
+  );
 }
 
 const Tab = createBottomTabNavigator();

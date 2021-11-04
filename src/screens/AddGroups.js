@@ -88,7 +88,7 @@ const AddGroups = ({navigation}) => {
             <Text style={styles.blueTextButton}> Create Group </Text>
           </TouchableOpacity>
         </View>
-        
+
         <View style={styles.master}>
           <Text style={styles.subHeader}>Add Members</Text>
           <SafeAreaView style={[styles.containerTop, {alignItems: 'center'}]}>
