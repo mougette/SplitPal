@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Signin from './src/screens/Signin';
+import SignupInfo from './src/screens/SignupInfo';
 import Signup from "./src/screens/Signup";
 import HomeScreen from './src/screens/HomeScreen';
 import Friends from './src/screens/Friends';
@@ -29,6 +30,11 @@ function authFlow() {
         name="Signup"
         component={Signup}
       />
+        <AuthStack.Screen
+            options={{headerShown: false}}
+            name="SignupInfo"
+            component={SignupInfo}
+        />
     </AuthStack.Navigator>
   );
 }

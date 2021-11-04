@@ -1,11 +1,13 @@
- const Post = (url, body) => {
-    fetch(url, {
+export function Post(url, body) {
+    return fetch(url, {
       method: 'POST',
       body: body
-    }).then((response) => response.json())
-          .then((json) => {
-            console.log(json)
-            alert(json);
-          });
+    })
+        .then((response) => response.json())
+        .catch((error) => console.warn("fetch error:", error))
+        .then((responseData) => {
+            return responseData;
+        })
+        .catch(error => console.warn(error));
   }
-export default Post;
+export default {Post};

@@ -5,10 +5,11 @@ import {Input, Button} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 
-const Signup = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
+const SignupInfo = ({  navigation, route }) => {
+    const { email, password, password2 } = route.params;
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const {state, signup} = useContext(AuthContext);
 
   return (
@@ -16,29 +17,23 @@ const Signup = ({navigation}) => {
 
       <SplitPalLogoComponent />
       <Input
-        placeholder="Email"
-        onChangeText={setEmail}
-        value={email}
-        leftIcon={<Icon name="envelope" type="font-awesome" size={24} />}
-        textContentType="emailAddress"
+        placeholder="First Name"
+        onChangeText={setFirstName}
+        value={firstName}
         autoCapitalize="none"
         autoCorrect={false}
       />
       <Input
-        placeholder="Password"
-        onChangeText={setPassword}
-        value={password}
-        leftIcon={<Icon name="key" type="font-awesome" size={24} />}
-        secureTextEntry
+        placeholder="Last Name"
+        onChangeText={setLastName}
+        value={lastName}
         autoCapitalize="none"
         autoCorrect={false}
       />
       <Input
-        placeholder="Confirm Password"
-        onChangeText={setPassword2}
-        value={password2}
-        leftIcon={<Icon name="key" type="font-awesome" size={24} />}
-        secureTextEntry
+        placeholder="Phone Number"
+        onChangeText={setPhoneNumber}
+        value={phoneNumber}
         autoCapitalize="none"
         autoCorrect={false}
       />
@@ -46,15 +41,9 @@ const Signup = ({navigation}) => {
         title="Login"
         type="clear"
         onPress={() => {
-            navigation.navigate("SignupInfo", {email: email, password: password, password2: password2,})
+          signup({email, password, password2, firstName, lastName, phoneNumber});
         }}
       />
-      <View style={styles.link}>
-        <Text style={styles.text}>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
-          <Text style={styles.blueText}>Sign in Here.</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -86,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signup;
+export default SignupInfo;

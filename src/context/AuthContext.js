@@ -1,7 +1,8 @@
 import React, { useState} from "react";
 import createDataContext from './createDataContext';
-import Post from '../components/RestPost';
+import {Post} from '../components/RestPost';
 import {Get} from '../components/RestGet';
+
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'signout':
@@ -22,16 +23,35 @@ const authReducer = (state, action) => {
 };
 
 const signup = dispatch => {
-  return ({email, password, password2}) => {
+    const [account, setAccount] = useState("");
+  return ({email, password, password2, firstName, lastName, phoneNumber}) => {
     Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/login",
                 JSON.stringify({
                  email: email,
                  password: password,
                  password2: password2,
-                 firstName: "NULL",
-                 lastName: "NULL",
-                 phoneNumber: "NULL",
+                    firstName: firstName,
+                    lastName: lastName,
+                    phoneNumber: phoneNumber,
                  }))
+        .then(response => setAccount(response));
+    console.log("Account: " + account + " Account End");
+      if(account == "Account Successfully Made") {
+              dispatch({
+                  type: 'signup',
+                  payload: {
+                      token: 'some access token here',
+                      email,
+                  },
+              });
+      }
+      else {
+          if (account != "") {
+              alert(account)
+          }
+      }
+
+
   };
 };
 
