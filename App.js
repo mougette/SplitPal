@@ -7,8 +7,10 @@ import Signin from './src/screens/Signin';
 import Signup from "./src/screens/Signup";
 import HomeScreen from './src/screens/HomeScreen';
 import Friends from './src/screens/Friends';
+import AddFriends from './src/screens/AddFriends';
 import Split from './src/screens/Split';
 import Groups from './src/screens/Groups';
+import AddGroups from './src/screens/AddGroups';
 import Profile from './src/screens/Profile';
 import {Provider as AuthProvider} from './src/context/AuthContext.js';
 import {Context as AuthContext} from './src/context/AuthContext';
@@ -29,6 +31,42 @@ function authFlow() {
       />
     </AuthStack.Navigator>
   );
+}
+
+const FriendStack = createStackNavigator();
+function friendFlow() {
+    return (
+        <FriendStack.Navigator>
+            <FriendStack.Screen
+                options={{headerShown: false}}
+                name="Friends"
+                component={Friends}
+            />
+            <FriendStack.Screen
+                options={{headerShown: false}}
+                name="AddFriends"
+                component={AddFriends}
+            />
+        </FriendStack.Navigator>
+    );
+}
+
+const GroupStack = createStackNavigator();
+function groupFlow() {
+    return (
+        <GroupStack.Navigator>
+            <GroupStack.Screen
+                options={{headerShown: false}}
+                name="Groups"
+                component={Groups}
+            />
+            <GroupStack.Screen
+                options={{headerShown: false}}
+                name="AddGroups"
+                component={AddGroups}
+            />
+        </GroupStack.Navigator>
+    );
 }
 
 const Tab = createBottomTabNavigator();
@@ -63,9 +101,9 @@ function homeFlow() {
       })}
     >
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="Friends" component={Friends} />
+      <Tab.Screen name="Friends" component={friendFlow} />
       <Tab.Screen name="Split" component={Split} />
-      <Tab.Screen name="Groups" component={Groups} />
+      <Tab.Screen name="Groups" component={groupFlow} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

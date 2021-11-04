@@ -15,7 +15,7 @@ const Entry = (props) => {
     if (props.balance === "Pending") {
         color = "grey"
     }
-    else if (props.balance === "Accept" || props.balance === "Split") {
+    else if (props.balance === "Accept" || props.balance === "Split" || props.balance === "Add") {
         color = "#2a56a9"
     }
 

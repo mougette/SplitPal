@@ -39,7 +39,7 @@ const Groups = ({navigation}) => {
 
   return (
       <View style={styles.master}>
-          <SearchAndAdd type={"Groups"} onPress = { () => console.log("Yo") } />
+          <SearchAndAdd type={"Groups"} onPress = { () => navigation.navigate("AddGroups") } />
           <SafeAreaView style={styles.containerTop}>
               <FlatList
                   data={DATA}

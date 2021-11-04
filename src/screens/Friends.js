@@ -77,7 +77,7 @@ const Friends = ({navigation}) => {
 
   return (
     <View style={styles.master}>
-      <SearchAndAdd type={"Friends"} onPress = { () => console.log("Yo") } />
+      <SearchAndAdd type={"Friends"} onPress = { () => navigation.navigate("AddFriends") } />
         <SafeAreaView style={styles.containerTop}>
           <FlatList
               data={DATA}
