@@ -2,17 +2,15 @@ import React from 'react';
 import { TouchableOpacity, TextInput, StyleSheet, Text, View } from "react-native";
 
 const SearchAndAdd = ( props ) => {
-    const placeholder = "Search " + props.type;
-    const str = "+ " + props.type;
 
     return(
         <View style={styles.link}>
             <TextInput
                 style={styles.input}
-                placeholder={ placeholder }
+                placeholder={ props.search }
             />
             <TouchableOpacity onPress={() => props.onPress()}>
-                <Text style={styles.blueTextButton}>{ str }</Text>
+                <Text style={styles.blueTextButton}>{ props.button }</Text>
             </TouchableOpacity>
         </View>
     );
