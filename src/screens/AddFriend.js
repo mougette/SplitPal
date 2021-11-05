@@ -15,14 +15,67 @@ const AddFriend = ({navigation}) => {
        .then(response => setDATA2(JSON.parse(response)));
     },[]);
   const renderItem = ( {item, index} ) => {
-    return (
-        <Entry
-            image='https://reactnative.dev/img/tiny_logo.png'
-            name={item.FirstName+item.LastName}
-            balance={item.Balance}
-            onPress = { () => console.log("Yo!") }
-        ></Entry>
-    );
+    if(item.Balance == "Accept"){
+      return (
+              <Entry
+                  image='https://reactnative.dev/img/tiny_logo.png'
+                  name={item.FirstName+item.LastName}
+                  balance={item.Balance}
+                  onPress = { () => {
+                  Alert.alert(
+                      "Accept friend request?",
+                      "",
+                  [
+                  {
+                  text: "Yes",
+                  onPress: () =>{
+                  Patch("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request",
+                  JSON.stringify({
+                        userEmail: state.email,
+                        friendEmail: item.Email,
+                        accepted : "1",
+                        }));
+                  setTimeout(() => {
+                      Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request","?user="+state.email)
+                      .then(response => setDATA2(JSON.parse(response)));
+                      console.log(DATA2)
+                      }, 2000);
+                        },
+                  },
+                  {
+                                text: "No",
+                                onPress: () =>{
+                                Patch("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request",
+                                JSON.stringify({
+                                      userEmail: state.email,
+                                      friendEmail: item.Email,
+                                      accepted : "0",
+                                      }));
+
+                                setTimeout(() => {
+                                Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request","?user="+state.email)
+                                   .then(response => setDATA2(JSON.parse(response)));
+                                   console.log(DATA2)
+                                      }, 2000);
+                                      },
+                  },
+                  ]
+                  );
+                  }
+                  }
+              ></Entry>
+          );
+      }
+      else{
+        return (
+            <Entry
+                image='https://reactnative.dev/img/tiny_logo.png'
+                name={item.FirstName+item.LastName}
+                balance={item.Balance}
+                onPress = { () => console.log("Yo!") }
+            ></Entry>
+        );
+        }
   };
   return (
     <View style={styles.master}>
@@ -36,6 +89,7 @@ const AddFriend = ({navigation}) => {
               data={DATA2}
               renderItem={renderItem}
               keyExtractor = {(item, index) => index.toString()}
+              extraData={DATA2}
           />
               <TouchableOpacity onPress={() => navigation.navigate("Friend")}>
                     <Text style={styles.blueText}>Back.</Text>
