@@ -41,7 +41,7 @@ const signup = dispatch => {
                   type: 'signup',
                   payload: {
                       token: 'some access token here',
-                      email,
+                      email: email,
                   },
               });
       }
@@ -56,20 +56,19 @@ const signup = dispatch => {
 };
 
 const signin = dispatch => {
-const [account, setAccount] = useState("");
   return ({email, password}) => {
     // Do some API Request here
    Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/login","?email="+email+"&password="+password)
-   .then(response => setAccount(response));
-    if(account == "User info correct"){
+   .then(response =>{
+    if(response == "User info correct"){
     dispatch({
       type: 'signin',
       payload: {
         token: 'some access token here',
-        email,
+        email: email,
       },
     });
-    }
+    }});
   };
 };
 

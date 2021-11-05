@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, TouchableOpacity, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, TouchableOpacity, ImageBackground, Alert} from 'react-native';
 import Entry from "../components/EntryComponent";
 import SearchAndAdd from "../components/SearchAndAddComponent";
 import {Get} from '../components/RestGet';
+import Patch from '../components/RestPatch';
 import { Context as AuthContext } from "../context/AuthContext";
+
 
 const Friends = ({navigation}) => {
 const { state, setState2 } = useContext(AuthContext);
@@ -16,8 +18,64 @@ Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-r
    .then(response => setDATA2(JSON.parse(response)));
 },[]);
   const renderItem = ( {item,index} ) => {
-  console.log(DATA2)
-  console.log(DATA)
+  if(item.Balance == "Accept"){
+  return (
+          <Entry
+              image='https://reactnative.dev/img/tiny_logo.png'
+              name={item.FirstName+item.LastName}
+              balance={item.Balance}
+              onPress = { () => {
+              Alert.alert(
+                  "Accept friend request?",
+                  "",
+              [
+              {
+              text: "Yes",
+              onPress: () =>{
+              Patch("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request",
+              JSON.stringify({
+                    userEmail: state.email,
+                    friendEmail: item.Email,
+                    accepted : "1",
+                    }));
+              setTimeout(() => {
+                  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend","?user="+state.email)
+                  .then(response => setDATA(JSON.parse(response)));
+                  console.log(DATA)
+                  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request","?user="+state.email)
+                  .then(response => setDATA2(JSON.parse(response)));
+                  console.log(DATA2)
+                  }, 2000);
+                    },
+              },
+              {
+                            text: "No",
+                            onPress: () =>{
+                            Patch("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request",
+                            JSON.stringify({
+                                  userEmail: state.email,
+                                  friendEmail: item.Email,
+                                  accepted : "0",
+                                  }));
+
+                            setTimeout(() => {
+                            Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend","?user="+state.email)
+                               .then(response => setDATA(JSON.parse(response)));
+                             console.log(DATA)
+                            Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request","?user="+state.email)
+                               .then(response => setDATA2(JSON.parse(response)));
+                               console.log(DATA2)
+                                  }, 2000);
+                                  },
+              },
+              ]
+              );
+              }
+              }
+          ></Entry>
+      );
+  }
+  else{
     return (
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
@@ -26,6 +84,7 @@ Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-r
             onPress = { () => console.log("Yo!") }
         ></Entry>
     );
+    }
   };
 
   return (
@@ -36,6 +95,7 @@ Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-r
               data={DATA}
               renderItem={renderItem}
               keyExtractor = {(item, index) => index.toString()}
+              extraData={DATA}
           />
         </SafeAreaView>
         <Text style={styles.header}>Pending Requests</Text>
@@ -44,6 +104,7 @@ Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-r
               data={DATA2}
               renderItem={renderItem}
               keyExtractor = {(item, index) => index.toString()}
+              extraData={DATA2}
           />
         </SafeAreaView>
     </View>
