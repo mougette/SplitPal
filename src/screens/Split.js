@@ -1,128 +1,176 @@
-import React, {useState, useContext} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity, FlatList, SafeAreaView, ScrollView, TextInput, Button} from 'react-native';
-import {Context as AuthContext} from '../context/AuthContext';
+import React, { Component } from 'react';
+import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
-import Entry from "../components/EntryComponent";
-import Post from '../components/RestPost';
-import Get from '../components/RestGet';
 
-const Split = ({navigation}) => {
-  const {state} = useContext(AuthContext);
-  const balance = 45.17
-  const str = (balance > 0) ? "You are owed:" : "You owe:"
-  const color = (balance > 0) ? "#2abb42" : "#bb2a2a"
-  const [splitEmail, setSplitEmail] = useState("");
-  const [amount, setAmount] = useState("");
-  const [reason, setReason] = useState("");
-  return (
-    <View style={styles.master}>
-          <ScrollView>
-            <View style={{ alignItems: "center", marginTop: 10 }}>
-              <SplitPalLogoComponent/>
-            </View>
-              <View style={{ alignItems: "center", padding: 10 }}>
-                <Text style={styles.textlabel}>Email</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={setSplitEmail}
-                  value={splitEmail}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-              </View>
-              <View style={{ alignItems: "center", padding: 10 }}>
-                <Text style={styles.textlabel}>Amount</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={setAmount}
-                  value={amount}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-              </View>
-            <View style={{ alignItems: "center", padding: 10 }}>
-                <Text style={styles.textlabel}>Reason</Text>
-                <TextInput
-                  style={styles.inputReason}
-                  onChangeText={setReason}
-                  multiline
-                  value={reason}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-              />
-            </View>
-            <View style={{ alignSelf: "center" }}>
-              <Button
-                title="Submit"
-                onPress={() => {
-                  console.log("New Transaction Here");
-                  }}
-              />
-            </View>
-          </ScrollView>
+class Split extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      textInput : [],
+      inputData : []
+    }
+  }
+
+  //function to add TextInput dynamically
+  addTextInput = (index) => {
+    let textInput = this.state.textInput;
+    textInput.push(<View key = {index} style= {styles.row}>
+    <TextInput style={styles.input}
+      onChangeText={(text) => this.addValues(text, index, true)} />
+      <TextInput style={styles.input2}
+            onChangeText={(text) => this.addValues(text, index, false)} />
+      </View>
+      );
+    this.setState({ textInput });
+  }
+
+  //function to remove TextInput dynamically
+  removeTextInput = () => {
+    let textInput = this.state.textInput;
+    let inputData = this.state.inputData;
+    textInput.pop();
+    inputData.pop();
+    this.setState({ textInput,inputData });
+  }
+
+  //function to add text from TextInputs into single array
+  addValues = (text, index, item) => {
+    let dataArray = this.state.inputData;
+    let checkBool = false;
+    if (dataArray.length !== 0){
+        for(let i = 0; i< dataArray.length; i++){
+         if(i === index){
+            if(item)
+                dataArray[i].item = text;
+            else
+                dataArray[i].price = text;
+            checkBool = true;
+         }
+        }
+    }
+    if (checkBool){
+    this.setState({
+      inputData: dataArray
+    });
+  }
+  else {
+    dataArray.push({'item': "NULL",'price':"NULL"});
+    this.setState({
+      inputData: dataArray
+    });
+  }
+  }
+
+  //function to console the output
+  getValues = () => {
+    console.log('Data',this.state.inputData);
+  }
+
+
+  render(){
+    return(
+      <View style={styles.master}>
+      <SplitPalLogoComponent/>
+      <View style= {styles.row}>
+      <Text style={{color: "black", fontSize: 25, marginRight:10}}>Item</Text>
+      <Text style={{color: "black", fontSize: 25, marginLeft: 170}}>Price</Text>
+      </View>
+      <ScrollView style={styles.containerBot}>
+      {this.state.textInput.map((value) => {
+                return value
+              })}
+        <View style= {styles.row}>
+          <View style={{margin: 10}}>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => this.addTextInput(this.state.textInput.length)}>
+                        <Text style={{color: "black", fontSize: 18}}>+</Text>
+        </TouchableOpacity>
         </View>
-  );
-};
+        <View style={{margin: 10}}>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => this.removeTextInput()}>
+                        <Text style={{color: "black", fontSize: 18}}>Remove</Text>
+        </TouchableOpacity>
+        </View>
+        </View>
+        </ScrollView>
+        <View style={{width: "40%", padding: 20}}>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => this.getValues()}>
+                        <Text style={{color: "black", fontSize: 25}}>Submit</Text>
+        </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   master: {
-    flex: 1,
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#87a1b6'
+    },
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#87a1b6',
+    backgroundColor: 'white',
   },
-  header: {
-    fontSize: 26,
-    marginBottom: 10,
+  buttonView: {
+  flexDirection: 'row'
   },
-  input: {
-      height: 40,
-      width: 150,
-      margin: 12,
-      borderWidth: 1,
-      borderRadius: 3,
-      padding: 10,
-      backgroundColor: "#fff",
-    },
-    inputReason: {
-          height: "30%",
-          width: "95%",
-          margin: 12,
+  containerBot: {
+    flex: 1,
+    marginTop: 0,
+  },
+  blueTextButton: {
+          fontSize: 20,
           borderWidth: 1,
-          borderRadius: 3,
+          borderRadius: 7,
+          overflow: "hidden",
           padding: 10,
-          backgroundColor: "#fff",
-        },
-  header2: {
-    fontSize: 26,
-    marginBottom: 0,
-    marginTop: 10,
-  },
-  listItem:{
-    backgroundColor: "#f5f5f5",
-    padding: 10,
-    marginVertical: 8,
-    width:400,
-    flexDirection:"row",
-    borderRadius: 7,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textButton: {
-    fontSize: 20,
-    borderWidth: 1,
-    borderRadius: 7,
-    overflow: "hidden",
-    padding: 10,
-    marginLeft: 10,
-    width: '30%',
-    color: '#2196F3',
-    backgroundColor: '#2abb42',
-    alignItems: "center",
-  },
-  containerTop: {
-    flex: 2,
-    marginTop: 15,
+          marginLeft: 10,
+
+          color: '#2196F3',
+          backgroundColor: 'white',
+      },
+  textInput: {
+  height: 40,
+  borderColor: 'black',
+  borderWidth: 1,
+  margin: 20
+},
+input: {
+        width: '60%',
+        marginTop: 10,
+        borderWidth: 1,
+        borderRadius: 7,
+        padding: 10,
+        backgroundColor: 'white',
+    },
+input2: {
+        width: '30%',
+        marginTop: 10,
+        marginLeft: 10,
+        borderWidth: 1,
+        borderRadius: 7,
+        padding: 10,
+        backgroundColor: 'white',
+    },
+textButton: {
+        fontSize: 20,
+        borderWidth: 1,
+        borderRadius: 7,
+        overflow: "hidden",
+        padding: 10,
+        marginLeft: 10,
+        width: '30%',
+        color: '#2196F3',
+        backgroundColor: '#2abb42',
+        alignItems: "center",
+    },
+row:{
+  flexDirection: 'row',
+  justifyContent: 'center'
   },
 });
 
