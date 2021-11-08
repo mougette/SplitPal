@@ -34,9 +34,9 @@ const signup = dispatch => {
                     lastName: lastName,
                     phoneNumber: phoneNumber,
                  }))
-        .then(response => setAccount(response));
+        .then(response => {
     console.log("Account: " + account + " Account End");
-      if(account == "Account Successfully Made") {
+      if(response == "Account Successfully Made") {
               dispatch({
                   type: 'signup',
                   payload: {
@@ -46,10 +46,10 @@ const signup = dispatch => {
               });
       }
       else {
-          if (account != "") {
-              alert(account)
-          }
+              alert(response)
       }
+      }
+      );
 
 
   };
