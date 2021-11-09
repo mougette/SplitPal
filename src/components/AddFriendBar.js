@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Post from '../components/RestPost';
+import {Post} from '../components/RestPost';
 import { TouchableOpacity, TextInput, StyleSheet, Text, View } from "react-native";
 
 const AddFriendBar = ( props ) => {
