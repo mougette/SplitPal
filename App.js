@@ -70,6 +70,7 @@ function friendFlow() {
         name="Add Friends"
         component={AddFriend}
       />
+      <FriendStack.Screen name="Split" component={Split} />
     </FriendStack.Navigator>
   );
 }
@@ -107,7 +108,6 @@ function homeFlow() {
     >
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="Friends" component={friendFlow} />
-      <Tab.Screen name="Split" component={Split} />
       <Tab.Screen name="Groups" component={groupFlow} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

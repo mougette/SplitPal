@@ -75,6 +75,16 @@ Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-r
           ></Entry>
       );
   }
+  else if(item.Balance == "Split"){
+      return (
+          <Entry
+              image='https://reactnative.dev/img/tiny_logo.png'
+              name={item.FirstName+item.LastName}
+              balance={item.Balance}
+              onPress = { () => navigation.navigate("Split", [{item}, {state}]) }
+          ></Entry>
+      );
+      }
   else{
     return (
         <Entry

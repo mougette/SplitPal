@@ -6,6 +6,7 @@ class Split extends Component {
 
   constructor(props){
     super(props);
+    this.friend = props.route.params[0].item
     this.state = {
       textInput : [],
       inputData : []
@@ -55,7 +56,8 @@ class Split extends Component {
     });
   }
   else {
-    dataArray.push({'item': "NULL",'price':"NULL"});
+    let owedArray = [this.friend.Email]
+    dataArray.push({'item': "NULL",'price':"NULL", 'usersOwed' : owedArray});
     this.setState({
       inputData: dataArray
     });
