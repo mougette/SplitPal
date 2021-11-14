@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
+import {Post} from '../components/RestPost';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 
 class Split extends Component {
@@ -7,6 +8,7 @@ class Split extends Component {
   constructor(props){
     super(props);
     this.friend = props.route.params[0].item
+    this.email = props.route.params[1].state.email
     this.state = {
       textInput : [],
       inputData : []
@@ -56,7 +58,7 @@ class Split extends Component {
     });
   }
   else {
-    let owedArray = [this.friend.Email]
+    let owedArray = this.friend.Email
     dataArray.push({'item': "NULL",'price':"NULL", 'usersOwed' : owedArray});
     this.setState({
       inputData: dataArray
@@ -66,7 +68,15 @@ class Split extends Component {
 
   //function to console the output
   getValues = () => {
-    console.log('Data',this.state.inputData);
+  let body =  JSON.stringify({
+                              sender: this.email,
+                              groupID: "NULL",
+                              transactions: this.state.inputData,
+                              })
+    console.log(body)
+    Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/transaction", body)
+    .then(response => {console.log(response)});
+    console.log("Sent transactions")
   }
 
 
