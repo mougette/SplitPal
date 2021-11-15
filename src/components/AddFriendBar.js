@@ -12,7 +12,7 @@ const [friend, setFriend] = useState("");
                 value={friend}
                 placeholder={ props.search }
             />
-            <TouchableOpacity onPress={() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/friend-request",
+            <TouchableOpacity onPress={() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/friend-request",
                                                              JSON.stringify({
                                                               userEmail: props.email,
                                                               friendEmail: friend,

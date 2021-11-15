@@ -47,7 +47,7 @@ class Split extends Component {
             if(item)
                 dataArray[i].item = text;
             else
-                dataArray[i].price = text;
+                dataArray[i].price = 0-text;
             checkBool = true;
          }
         }
@@ -74,7 +74,7 @@ class Split extends Component {
                               transactions: this.state.inputData,
                               })
     console.log(body)
-    Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/transaction", body)
+    Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction", body)
     .then(response => {console.log(response)});
     console.log("Sent transactions")
   }

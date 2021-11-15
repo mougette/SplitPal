@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, FlatList, SafeAreaView} from 'react-native';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 import Entry from "../components/EntryComponent";
-import Post from '../components/RestPost';
-import Get from '../components/RestGet';
-const DATA = [
+import {Post} from '../components/RestPost';
+import {Get} from '../components/RestGet';
+const DATA2 = [
   {
     id: '1',
     image: 'https://reactnative.dev/img/tiny_logo.png',
@@ -52,22 +52,29 @@ const DATA = [
 
 const HomeScreen = ({navigation}) => {
   const {state} = useContext(AuthContext);
+  const [DATA, setDATA] = useState("");
   const balance = 45.17
   const str = (balance > 0) ? "You are owed:" : "You owe:"
   const color = (balance > 0) ? "#2abb42" : "#bb2a2a"
 
-  const renderItem = ( item ) => {
+  useEffect(() => {
+  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/balance","?userEmail="+state.email)
+     .then(response => setDATA(response));
+  },[]);
+
+  const renderItem = ( {item,index} ) => {
+  console.log(item)
     return (
         <Entry
-            image={item.item.image}
-            name={item.item.name}
-            balance={item.item.balance}
-            onPress = {() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_1/transaction",
-            JSON.stringify({userOwed : state.name,
-             userOwes : item.item.name,
-             amount : item.item.balance,
-             recieptID : "NULL"
-             }))}
+            image='https://reactnative.dev/img/tiny_logo.png'
+            name={item.FirstName+" "+item.LastName}
+            balance={item.Balance.toString()}
+            onPress = {() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction",
+            JSON.stringify({sender: state.email,
+                            groupID: "NULL",
+                            transactions: [{item:"payment",
+                                            amount:item.balance,
+                                            usersOwed:item.Email}],}))}
         ></Entry>
     );
   };
@@ -82,7 +89,7 @@ const HomeScreen = ({navigation}) => {
           <Text style={{fontWeight:"bold"}}>{str}</Text>
         </View>
         <TouchableOpacity style={[styles.textButton, {backgroundColor: color}]}>
-          <Text style={{color: "white", fontSize: 18}}>{balance}</Text>
+          <Text style={{color: "white", fontSize: 18}}>{DATA == "" ? DATA :DATA[0].TotalBalance}</Text>
         </TouchableOpacity>
       </View>
 
@@ -90,8 +97,10 @@ const HomeScreen = ({navigation}) => {
 
       <SafeAreaView style={styles.containerTop}>
         <FlatList
-            data={DATA}
+            data={DATA == "" ? DATA : DATA.splice(1)}
             renderItem={renderItem}
+            keyExtractor = {(item, index) => index.toString()}
+            extraData={DATA}
         />
       </SafeAreaView>
     </View>
