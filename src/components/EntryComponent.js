@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     SafeAreaView,
     FlatList,
@@ -10,15 +10,18 @@ import {
 import { StyleSheet, Text, View } from 'react-native';
 
 const Entry = (props) => {
-
+const [groupStatus, setGroupStatus] = useState(true);
     let color = (props.balance.startsWith("-")) ? "#bb2a2a" : "#2abb42"
     if (props.balance === "Pending") {
         color = "grey"
     }
-    else if (props.balance === "Accept" || props.balance === "Split" || props.balance === "Add") {
+    else if (props.balance === "Accept" || props.balance === "Split" || props.balance === "groups") {
         color = "#2a56a9"
     }
-
+    const buttonPress = () =>{
+    setGroupStatus(!groupStatus)
+    props.onPress();
+    }
     return(
         <View style={styles.listItem}>
             <Image source ={{uri: props.image}}
@@ -26,8 +29,8 @@ const Entry = (props) => {
             <View style={{alignItems:"center", justifyContent: 'center', flex:1}}>
                 <Text style={{fontWeight:"bold"}}>{props.name}</Text>
             </View>
-            <TouchableOpacity style={[styles.textButton, {backgroundColor: color}]} onPress={props.onPress}>
-                <Text style={{color: "white", fontSize: 18}}>{props.balance}</Text>
+            <TouchableOpacity style={[styles.textButton, {backgroundColor: color}]} onPress = {buttonPress}>
+                <Text style={{color: "white", fontSize: 18}}>{props.balance === "groups" ? groupStatus ? "Add" : "Added" : props.balance }</Text>
             </TouchableOpacity>
         </View>
     );

@@ -5,50 +5,6 @@ import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 import Entry from "../components/EntryComponent";
 import {Post} from '../components/RestPost';
 import {Get} from '../components/RestGet';
-const DATA2 = [
-  {
-    id: '1',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Eliot',
-    balance: '15.34',
-  },
-  {
-    id: '2',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Abby',
-    balance: '12.87',
-  },
-  {
-    id: '3',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Joe',
-    balance: "-7.45",
-  },
-  {
-    id: '4',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Kevin',
-    balance: '6.12',
-  },
-  {
-    id: '5',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Matt',
-    balance: '12.87',
-  },
-  {
-    id: '6',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Nick',
-    balance: "-10.15",
-  },
-  {
-    id: '7',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Steven',
-    balance: '6.12',
-  },
-];
 
 const HomeScreen = ({navigation}) => {
   const {state} = useContext(AuthContext);

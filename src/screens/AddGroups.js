@@ -1,65 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {Get} from '../components/RestGet';
 import Entry from "../components/EntryComponent";
 import SearchAndAdd from "../components/SearchAndAddComponent";
 import {Icon} from "react-native-elements";
-
-const DATA = [
-  {
-    id: '1',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Eliot',
-    balance: 'Add',
-  },
-  {
-    id: '2',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Abby',
-    balance: 'Add',
-  },
-  {
-    id: '3',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Joe',
-    balance: "Add",
-  },
-  {
-    id: '4',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Kevin',
-    balance: 'Add',
-  },
-  {
-    id: '5',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Matt',
-    balance: 'Add',
-  },
-  {
-    id: '6',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Nick',
-    balance: "Add",
-  },
-  {
-    id: '7',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    name: 'Steven',
-    balance: 'Add',
-  },
-];
+import {Post} from '../components/RestPost';
+import { Context as AuthContext } from "../context/AuthContext";
 
 const AddGroups = ({navigation}) => {
 
   const [groupName, setGroupName] = useState('');
-
-  const renderItem = ( item ) => {
+  const { state, setState2 } = useContext(AuthContext);
+      const [DATA2, setDATA2] = useState("");
+      const [usersToAdd, setUsersToAdd] = useState([state.email]);
+      useEffect(() => {
+      Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/friend","?user="+state.email)
+         .then(response => setDATA2(JSON.parse(response)));
+      },[]);
+  const updateUsers = (userEmail) => {
+    let copy = usersToAdd
+    let index = copy.indexOf(userEmail);
+    if(index == -1){
+        copy.push(userEmail);
+    }
+    else{
+    copy.splice(index,1);
+    }
+    setUsersToAdd(copy);
+  }
+  const renderItem = ( {item,index} ) => {
+  console.log(item)
     return (
         <Entry
-            image={item.item.image}
-            name={item.item.name}
-            balance={item.item.balance}
-            onPress = { () => console.log("Yo!") }
+            image='https://reactnative.dev/img/tiny_logo.png'
+            name={item.FirstName+item.LastName}
+            balance="groups"
+            onPress = { () => {updateUsers(item.Email); console.log(usersToAdd)} }
         ></Entry>
     );
   };
@@ -84,7 +60,12 @@ const AddGroups = ({navigation}) => {
               autoCapitalize="none"
               autoCorrect={false}
           />
-          <TouchableOpacity onPress={() => console.log("Group Created")}>
+          <TouchableOpacity onPress={() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-view",
+                                                                                         JSON.stringify({
+                                                                                          userEmail: state.email,
+                                                                                          usersAdded: usersToAdd,
+                                                                                          groupName: groupName,
+                                                                                          }))}>
             <Text style={styles.blueTextButton}> Create Group </Text>
           </TouchableOpacity>
         </View>
@@ -93,8 +74,10 @@ const AddGroups = ({navigation}) => {
           <Text style={styles.subHeader}>Add Members</Text>
           <SafeAreaView style={[styles.containerTop, {alignItems: 'center'}]}>
             <FlatList
-                data={DATA}
+                data={DATA2}
                 renderItem={renderItem}
+                keyExtractor = {(item, index) => index.toString()}
+                extraData={DATA2}
             />
           </SafeAreaView>
         </View>

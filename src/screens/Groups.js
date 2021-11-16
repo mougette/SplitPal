@@ -1,37 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {View, Text, StyleSheet, SafeAreaView, FlatList} from 'react-native';
 import Entry from '../components/EntryComponent.js';
+import {Get} from '../components/RestGet';
 import SearchAndAdd from "../components/SearchAndAddComponent";
+import { Context as AuthContext } from "../context/AuthContext";
 
-const DATA = [
-    {
-        id: '1',
-        image: 'https://reactnative.dev/img/tiny_logo.png',
-        name: 'Roomies',
-        balance: 'Split',
-    },
-    {
-        id: '2',
-        image: 'https://reactnative.dev/img/tiny_logo.png',
-        name: 'Fam',
-        balance: 'Split',
-    },
-    {
-        id: '3',
-        image: 'https://reactnative.dev/img/tiny_logo.png',
-        name: 'Grand Canyon',
-        balance: "Split",
-    },
-];
+
 
 const Groups = ({navigation}) => {
-
-    const renderItem = ( item ) => {
+const { state, setState2 } = useContext(AuthContext);
+const [DATA, setDATA] = useState("");
+useEffect(() => {
+Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-view","?userEmail="+state.email)
+   .then(response => setDATA(JSON.parse(response)));
+},[]);
+    const renderItem = ( {item,index} ) => {
+    console.log(item)
         return (
             <Entry
-                image={item.item.image}
-                name={item.item.name}
-                balance={item.item.balance}
+                image='https://reactnative.dev/img/tiny_logo.png'
+                name={item.GroupName}
+                balance="Split"
                 onPress = { () => console.log("Yo!") }
             ></Entry>
         );
@@ -44,6 +33,8 @@ const Groups = ({navigation}) => {
               <FlatList
                   data={DATA}
                   renderItem={renderItem}
+                  keyExtractor = {(item, index) => index.toString()}
+                  extraData={DATA}
               />
           </SafeAreaView>
       </View>
