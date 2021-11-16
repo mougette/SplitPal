@@ -9,6 +9,7 @@ import Signup from "./src/screens/Signup";
 import HomeScreen from './src/screens/HomeScreen';
 import Friends from './src/screens/Friends';
 import Split from './src/screens/Split';
+import SplitGroup from './src/screens/SplitGroup';
 import Groups from './src/screens/Groups';
 import AddGroups from './src/screens/AddGroups';
 import Profile from './src/screens/Profile';
@@ -53,6 +54,7 @@ function groupFlow() {
                 name="AddGroups"
                 component={AddGroups}
             />
+            <GroupStack.Screen name="SplitGroup" component={SplitGroup} />
         </GroupStack.Navigator>
     );
 }

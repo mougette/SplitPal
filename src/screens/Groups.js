@@ -21,7 +21,7 @@ Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-vi
                 image='https://reactnative.dev/img/tiny_logo.png'
                 name={item.GroupName}
                 balance="Split"
-                onPress = { () => console.log("Yo!") }
+                onPress = { () => navigation.navigate("SplitGroup", [{item}, {state}]) }
             ></Entry>
         );
     };

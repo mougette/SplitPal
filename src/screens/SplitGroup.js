@@ -1,29 +1,55 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text, ScrollView, FlatList} from 'react-native';
 import {Post} from '../components/RestPost';
+import {Get} from '../components/RestGet';
+import GroupEntry from '../components/GroupEntryComponent.js';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 
-class Split extends Component {
+class SplitGroup extends Component {
 
   constructor(props){
     super(props);
-    this.friend = props.route.params[0].item
+    console.log(props.route.params[0].item)
+    this.groupID = props.route.params[0].item.GroupID
     this.email = props.route.params[1].state.email
-    console.log(props)
     this.state = {
+      groupMembers: [],
       textInput : [],
-      inputData : []
+      inputData : [],
     }
   }
+  componentDidMount(){
+  let groupMembers = this.state.groupMembers;
+  console.log("test")
+  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-member-view","?groupID="+this.groupID+"&userEmail="+this.email)
+     .then(response => {
+     groupMembers = JSON.parse(response);
+     this.setState({ groupMembers });
+     });
 
+  }
   //function to add TextInput dynamically
   addTextInput = (index) => {
     let textInput = this.state.textInput;
-    textInput.push(<View key = {index} style= {styles.row}>
+    textInput.push(<View  key = {index}><View style= {styles.row}>
     <TextInput style={styles.input}
       onChangeText={(text) => this.addValues(text, index, true)} />
       <TextInput style={styles.input2}
             onChangeText={(text) => this.addValues(text, index, false)} />
+      </View>
+      <View style= {styles.row}>
+        {this.state.groupMembers.map((item, index) => {
+              console.log(this.state.groupMembers)
+              return (<View key ={index}>
+                               <GroupEntry
+                                    image='https://reactnative.dev/img/tiny_logo.png'
+                                    name="testingreallylongname"
+                                    onPress = { () => console.log("Do Stuff") }
+                                    ></GroupEntry>
+                                    </View>
+              );
+        })}
+        </View>
       </View>
       );
     this.setState({ textInput });
@@ -71,23 +97,18 @@ class Split extends Component {
   getValues = () => {
   let body =  JSON.stringify({
                               sender: this.email,
-                              groupID: "NULL",
+                              groupID: this.groupID,
                               transactions: this.state.inputData,
                               })
     console.log(body)
     Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction", body)
-    .then(response => {console.log(response);
-    this.state.inputData = []
-    this.state.textInput = []
-
-    });
+    .then(response => {console.log(response)});
     console.log("Sent transactions")
     this.props.navigation.goBack();
   }
 
 
   render(){
-    const { navigation } = this.props;
     return(
       <View style={styles.master}>
       <SplitPalLogoComponent/>
@@ -193,4 +214,4 @@ row:{
   },
 });
 
-export default Split;
+export default SplitGroup;
