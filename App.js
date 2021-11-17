@@ -14,6 +14,7 @@ import Groups from './src/screens/Groups';
 import AddGroups from './src/screens/AddGroups';
 import Profile from './src/screens/Profile';
 import AddFriend from './src/screens/AddFriend';
+import CameraScreen from './src/screens/CameraScreen';
 import {Provider as AuthProvider} from './src/context/AuthContext.js';
 import {Context as AuthContext} from './src/context/AuthContext';
 
@@ -73,6 +74,7 @@ function friendFlow() {
         component={AddFriend}
       />
       <FriendStack.Screen name="Split" component={Split} />
+      <FriendStack.Screen name="CameraScreen" component={CameraScreen} />
     </FriendStack.Navigator>
   );
 }

@@ -117,6 +117,9 @@ class Split extends Component {
         <TouchableOpacity style={styles.blueTextButton} onPress={() => this.getValues()}>
                         <Text style={{color: "black", fontSize: 25}}>Submit</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => navigation.navigate("CameraScreen")}>
+                        <Text style={{color: "black", fontSize: 13}}>Use Camera</Text>
+        </TouchableOpacity>
         </View>
       </View>
     )
