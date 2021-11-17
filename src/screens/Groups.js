@@ -11,9 +11,12 @@ const Groups = ({navigation}) => {
 const { state, setState2 } = useContext(AuthContext);
 const [DATA, setDATA] = useState("");
 useEffect(() => {
+const unsubscribe = navigation.addListener('focus', () => {
 Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-view","?userEmail="+state.email)
    .then(response => setDATA(JSON.parse(response)));
-},[]);
+   });
+     return unsubscribe
+},[navigation]);
     const renderItem = ( {item,index} ) => {
     console.log(item)
         return (

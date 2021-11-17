@@ -11,9 +11,12 @@ const AddFriend = ({navigation}) => {
     const { state, setState2 } = useContext(AuthContext);
     const [DATA2, setDATA2] = useState("");
     useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
     Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/friend-request","?user="+state.email)
        .then(response => setDATA2(JSON.parse(response)));
-    },[]);
+       });
+         return unsubscribe
+    },[navigation]);
   const renderItem = ( {item, index} ) => {
     if(item.Balance == "Accept"){
       return (

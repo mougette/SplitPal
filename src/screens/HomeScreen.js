@@ -12,11 +12,14 @@ const HomeScreen = ({navigation}) => {
   const balance = DATA == "" ? DATA :DATA[0].TotalBalance
   const str = (balance > 0) ? "You are owed:" : "You owe:"
   const color = (balance > 0) ? "#2abb42" : "#bb2a2a"
-
+  const isLoaded = navigation.isFocused()
   useEffect(() => {
+  const unsubscribe = navigation.addListener('focus', () => {
   Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/balance","?userEmail="+state.email)
      .then(response => setDATA(response));
-  },[]);
+  });
+  return unsubscribe
+  },[navigation]);
 
   const renderItem = ( {item,index} ) => {
   console.log(item)

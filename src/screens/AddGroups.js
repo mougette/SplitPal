@@ -14,9 +14,12 @@ const AddGroups = ({navigation}) => {
       const [DATA2, setDATA2] = useState("");
       const [usersToAdd, setUsersToAdd] = useState([state.email]);
       useEffect(() => {
+      const unsubscribe = navigation.addListener('focus', () => {
       Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/friend","?user="+state.email)
          .then(response => setDATA2(JSON.parse(response)));
-      },[]);
+          });
+           return unsubscribe
+      },[navigation]);
   const updateUsers = (userEmail) => {
     let copy = usersToAdd
     let index = copy.indexOf(userEmail);
