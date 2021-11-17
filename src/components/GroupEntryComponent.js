@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     listItem:{
         padding: 10,
         marginVertical: 8,
+        marginHorizontal: 8,
         width:100,
         flexDirection:"row",
         borderRadius: 7,

@@ -46,7 +46,7 @@ class Split extends Component {
         for(let i = 0; i< dataArray.length; i++){
          if(i === index){
             if(item)
-                dataArray[i].item = text;
+                dataArray[i].transDesc = text;
             else
                 dataArray[i].price = 0-text;
             checkBool = true;
@@ -59,8 +59,8 @@ class Split extends Component {
     });
   }
   else {
-    let owedArray = this.friend.Email
-    dataArray.push({'item': "NULL",'price':"NULL", 'usersOwed' : owedArray});
+    let owedArray = [this.friend.Email]
+    dataArray.push({'transDesc': "NULL",'price':"NULL", 'users' : owedArray});
     this.setState({
       inputData: dataArray
     });
@@ -72,6 +72,7 @@ class Split extends Component {
   let body =  JSON.stringify({
                               sender: this.email,
                               groupID: "NULL",
+                              receiptDesc: "NULL",
                               transactions: this.state.inputData,
                               })
     console.log(body)

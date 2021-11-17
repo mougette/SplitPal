@@ -38,13 +38,12 @@ class SplitGroup extends Component {
             onChangeText={(text) => this.addValues(text, index, false)} />
       </View>
       <View style= {styles.row}>
-        {this.state.groupMembers.map((item, index) => {
-              console.log(this.state.groupMembers)
-              return (<View key ={index}>
+        {this.state.groupMembers.map((item, subindex) => {
+              return (<View key ={subindex}>
                                <GroupEntry
                                     image='https://reactnative.dev/img/tiny_logo.png'
-                                    name="testingreallylongname"
-                                    onPress = { () => console.log("Do Stuff") }
+                                    name={item.firstName + " " + item.lastName}
+                                    onPress = { () => this.updateUsers(item.email,index) }
                                     ></GroupEntry>
                                     </View>
               );
@@ -72,7 +71,7 @@ class SplitGroup extends Component {
         for(let i = 0; i< dataArray.length; i++){
          if(i === index){
             if(item)
-                dataArray[i].item = text;
+                dataArray[i].transDesc = text;
             else
                 dataArray[i].price = 0-text;
             checkBool = true;
@@ -85,19 +84,33 @@ class SplitGroup extends Component {
     });
   }
   else {
-    let owedArray = this.friend.Email
-    dataArray.push({'item': "NULL",'price':"NULL", 'usersOwed' : owedArray});
+    let owedArray = []
+    dataArray.push({'transDesc': "NULL",'price':"NULL", 'users' : owedArray});
     this.setState({
       inputData: dataArray
     });
   }
   }
-
+  //function to add text from TextInputs into single array
+  updateUsers = (email, index) => {
+    let dataCopy = this.state.inputData;
+    let userIndex = dataCopy[index].users.indexOf(email);
+        if(userIndex == -1){
+            dataCopy[index].users.push(email);
+        }
+        else{
+        dataCopy[index].users.splice(userIndex,1);
+        }
+    this.setState({
+          inputData: dataCopy
+        });
+  }
   //function to console the output
   getValues = () => {
   let body =  JSON.stringify({
                               sender: this.email,
                               groupID: this.groupID,
+                              receiptDesc: "NULL",
                               transactions: this.state.inputData,
                               })
     console.log(body)
