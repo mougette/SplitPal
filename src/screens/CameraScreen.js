@@ -7,7 +7,18 @@ import {Context as AuthContext} from '../context/AuthContext';
 const CameraScreen = ({navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const [hasPermission, setHasPermission] = useState(null);
-    const [type, setType] = useState(Camera.Constants.Type.back);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [capturedImage, setCapturedImage] = useState(null);
+
+  const __takePicture = async () => {
+      if (!camera) return
+      const photo = await camera.takePictureAsync({
+                    base64: true,
+                  })
+      console.log(photo)
+      setCapturedImage(photo)
+      console.log(photo)
+    };
 
     useEffect(() => {
       (async () => {
@@ -24,7 +35,9 @@ const CameraScreen = ({navigation}) => {
     }
     return (
       <View style={styles.container}>
-        <Camera style={styles.camera} type={type}>
+        <Camera style={styles.camera} type={type} ref={(r) => {
+            camera = r
+          }}>
           <View style={styles.link}>
             <TouchableOpacity
               style={styles.button}
@@ -39,7 +52,7 @@ const CameraScreen = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={console.log("Take Pic")}>
+              onPress={__takePicture}>
               <Text style={styles.text}> Take Picture </Text>
             </TouchableOpacity>
           </View>
