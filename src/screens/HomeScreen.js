@@ -22,7 +22,6 @@ const HomeScreen = ({navigation}) => {
   },[navigation]);
 
   const renderItem = ( {item,index} ) => {
-  console.log(item)
     return (
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
