@@ -16,5 +16,12 @@ describe('Test Hooks', () => {
 
     expect(tree).toMatchSnapshot();
     });
+    it('click Button',  () => {
+            const Post = jest.fn();
+            const {getByText} = render(<SearchAndAdd button="Add Friend" onPress= {Post}/>);
+                fireEvent.press(getByText("Add Friend"));
+                expect(Post).toBeCalledTimes(1);
+
+        });
 
 });
