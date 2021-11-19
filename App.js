@@ -58,7 +58,7 @@ function groupFlow() {
             />
             <GroupStack.Screen name="SplitGroup" component={SplitGroup} />
             <GroupStack.Screen name="CameraScreen" component={CameraScreen} />
-            <GroupStack.Screen name="ImageConfirm" component={ImageConfirm} />
+            <GroupStack.Screen name="ImageConfirm" component={ImageConfirm} initialParams={{ stack: "group" }}/>
         </GroupStack.Navigator>
     );
 }
@@ -78,7 +78,7 @@ function friendFlow() {
       />
       <FriendStack.Screen name="Split" component={Split} />
       <FriendStack.Screen name="CameraScreen" component={CameraScreen} />
-      <FriendStack.Screen name="ImageConfirm" component={ImageConfirm} />
+      <FriendStack.Screen name="ImageConfirm" component={ImageConfirm} initialParams={{ stack: "friend" }}/>
     </FriendStack.Navigator>
   );
 }

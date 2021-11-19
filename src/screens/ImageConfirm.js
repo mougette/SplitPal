@@ -2,9 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button, Navigation } from 'react-native';
 
-const ImageConfirm = ({ route, navigation }) => {
-console.log(route.params)
+const ImageConfirm = ({ route, navigation}) => {
+console.log(route)
  const { photo } = route.params;
+ const { stack } = route.params;
   return (
     <View style = {styles.master}>
         <View style={{height: 300, flex: 1,}}>
@@ -17,7 +18,7 @@ console.log(route.params)
 
             </View>
             <View style={{height: 40,}}>
-                <Button title = "Confirm" onPress = { () => navigation.navigate("SplitGroup") }/>
+                <Button title = "Confirm" onPress = { () => stack == "group" ? navigation.navigate("SplitGroup") : navigation.navigate("Split")}/>
             </View>
             <View style={{height: 40,}}>
                 <Button title = "Retry" onPress = { () => navigation.navigate("CameraScreen") }/>
