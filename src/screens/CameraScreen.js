@@ -8,6 +8,7 @@ const CameraScreen = ({navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [load, setLoad] = useState(true);
   const [capturedImage, setCapturedImage] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
 
@@ -18,13 +19,18 @@ const CameraScreen = ({navigation}) => {
                   })
       console.log(photo)
       setCapturedImage(photo)
-      console.log(photo)
 
     };
     const submitPicture = async() =>{
     const accept = await takePicture();
     navigation.navigate('ImageConfirm',{'photo': accept});
     }
+    navigation.addListener('focus', () => {
+          setLoad(true);
+        });
+    navigation.addListener('blur', () => {
+          setLoad(false);
+        });
 
     useEffect(() => {
       (async () => {
@@ -36,9 +42,10 @@ const CameraScreen = ({navigation}) => {
     if (hasPermission === null) {
       return <View />;
     }
-    if (hasPermission === false) {
+    else if (hasPermission === false) {
       return <Text>No access to camera</Text>;
     }
+    else if(load){
     return (
       <View style={styles.container}>
         <Camera style={styles.camera} type={type} ref={(r) => {
@@ -66,6 +73,10 @@ const CameraScreen = ({navigation}) => {
         </Camera>
       </View>
     );
+    }
+  else{
+  return <View />;
+  }
 };
 
 const styles = StyleSheet.create({
