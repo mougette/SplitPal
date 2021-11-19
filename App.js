@@ -6,6 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Signin from './src/screens/Signin';
 import SignupInfo from './src/screens/SignupInfo';
 import Signup from "./src/screens/Signup";
+import ImageConfirm from "./src/screens/ImageConfirm";
 import HomeScreen from './src/screens/HomeScreen';
 import Friends from './src/screens/Friends';
 import Split from './src/screens/Split';
@@ -56,6 +57,8 @@ function groupFlow() {
                 component={AddGroups}
             />
             <GroupStack.Screen name="SplitGroup" component={SplitGroup} />
+            <GroupStack.Screen name="CameraScreen" component={CameraScreen} />
+            <GroupStack.Screen name="ImageConfirm" component={ImageConfirm} />
         </GroupStack.Navigator>
     );
 }

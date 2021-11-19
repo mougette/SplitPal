@@ -122,6 +122,7 @@ class SplitGroup extends Component {
 
 
   render(){
+  const { navigation } = this.props;
     return(
       <View style={styles.master}>
       <SplitPalLogoComponent/>
@@ -149,6 +150,9 @@ class SplitGroup extends Component {
         <View style={{width: "40%", padding: 20}}>
         <TouchableOpacity style={styles.blueTextButton} onPress={() => this.getValues()}>
                         <Text style={{color: "black", fontSize: 25}}>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => navigation.navigate("CameraScreen")}>
+                        <Text style={{color: "black", fontSize: 13}}>Use Camera</Text>
         </TouchableOpacity>
         </View>
       </View>

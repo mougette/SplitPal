@@ -9,8 +9,9 @@ const CameraScreen = ({navigation}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [isCameraReady, setIsCameraReady] = useState(false);
 
-  const __takePicture = async () => {
+  const takePicture = async () => {
       if (!camera) return
       const photo = await camera.takePictureAsync({
                     base64: true,
@@ -18,7 +19,12 @@ const CameraScreen = ({navigation}) => {
       console.log(photo)
       setCapturedImage(photo)
       console.log(photo)
+
     };
+    const submitPicture = async() =>{
+    const accept = await takePicture();
+    navigation.navigate('ImageConfirm',{'photo': accept});
+    }
 
     useEffect(() => {
       (async () => {
@@ -37,6 +43,7 @@ const CameraScreen = ({navigation}) => {
       <View style={styles.container}>
         <Camera style={styles.camera} type={type} ref={(r) => {
             camera = r
+            onCameraReady=console.log("ready")
           }}>
           <View style={styles.link}>
             <TouchableOpacity
@@ -52,7 +59,7 @@ const CameraScreen = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={__takePicture}>
+              onPress={submitPicture}>
               <Text style={styles.text}> Take Picture </Text>
             </TouchableOpacity>
           </View>

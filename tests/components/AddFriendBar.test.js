@@ -7,17 +7,11 @@ import {navigate} from '@reach/router'
 import AddFriendBar from '../../src/components/AddFriendBar';
 import {NavigationContainer} from '@react-navigation/native';
 
-global.fetch = jest.fn().mockImplementation(() => {
-      var p = new Promise((resolve, reject) => {
-        resolve({
-          ok: true,
-          Id: '123',
-          json: function() {
-            return {Id: '123'}
-          }
-        });
-      });
-      })
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({ rates: { CAD: 1.42 } }),
+  })
+  );
 describe('Test Hooks', () => {
 
     it('navigates on button press', () => {
@@ -28,8 +22,8 @@ describe('Test Hooks', () => {
     });
 
     it('click Button',  () => {
-        const Post = jest.fn();
-        const {getByText} = render(<AddFriendBar button="Add Friend" onPress ={Post}/>);
+        const Post = global.fetch;
+        const {getByText} = render(<AddFriendBar button="Add Friend"/>);
             fireEvent.press(getByText("Add Friend"));
             expect(Post).toBeCalledTimes(1);
 
