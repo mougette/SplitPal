@@ -2,16 +2,17 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button, Navigation } from 'react-native';
 
-const ImageConfirm = ({navigation},props) => {
+const ImageConfirm = ({ route, navigation }) => {
+console.log(route.params)
+ const { photo } = route.params;
   return (
-    
     <View style = {styles.master}>
         <View style={{height: 300, flex: 1,}}>
             <View style={styles.container}>
                 <Image
                     resizeMode={'contain'}
                     style={styles.fill}
-                    source={props.image}
+                    source={{uri: photo.uri}}
                     />
 
             </View>

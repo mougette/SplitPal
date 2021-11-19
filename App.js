@@ -57,6 +57,8 @@ function groupFlow() {
                 component={AddGroups}
             />
             <GroupStack.Screen name="SplitGroup" component={SplitGroup} />
+            <GroupStack.Screen name="CameraScreen" component={CameraScreen} />
+            <GroupStack.Screen name="ImageConfirm" component={ImageConfirm} />
         </GroupStack.Navigator>
     );
 }

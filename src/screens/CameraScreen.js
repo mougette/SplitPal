@@ -17,13 +17,12 @@ const CameraScreen = ({navigation}) => {
       const photo = await camera.takePictureAsync({
                     base64: true,
                   })
-      console.log(photo)
       setCapturedImage(photo)
+          navigation.navigate('ImageConfirm',{'photo': photo});
 
     };
     const submitPicture = async() =>{
-    const accept = await takePicture();
-    navigation.navigate('ImageConfirm',{'photo': accept});
+    const accept = takePicture();
     }
     navigation.addListener('focus', () => {
           setLoad(true);
@@ -50,7 +49,6 @@ const CameraScreen = ({navigation}) => {
       <View style={styles.container}>
         <Camera style={styles.camera} type={type} ref={(r) => {
             camera = r
-            onCameraReady=console.log("ready")
           }}>
           <View style={styles.link}>
             <TouchableOpacity
@@ -66,7 +64,7 @@ const CameraScreen = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={submitPicture}>
+              onPress={takePicture}>
               <Text style={styles.text}> Snap Picture </Text>
             </TouchableOpacity>
           </View>
