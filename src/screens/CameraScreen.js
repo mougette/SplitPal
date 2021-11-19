@@ -47,7 +47,7 @@ const CameraScreen = ({navigation}) => {
           }}>
           <View style={styles.link}>
             <TouchableOpacity
-              style={styles.button}
+              style={styles.smallbutton}
               onPress={() => {
                 setType(
                   type === Camera.Constants.Type.back
@@ -60,7 +60,7 @@ const CameraScreen = ({navigation}) => {
             <TouchableOpacity
               style={styles.button}
               onPress={submitPicture}>
-              <Text style={styles.text}> Take Picture </Text>
+              <Text style={styles.text}> Snap Picture </Text>
             </TouchableOpacity>
           </View>
         </Camera>
@@ -79,7 +79,21 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     alignItems: 'center',
     backgroundColor: "gray",
+    marginLeft: 75,
+    width:80,
+    height:80,
+    borderRadius:90,
+    justifyContent: 'center',
+  },
+  smallbutton: {
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: "gray",
     marginLeft: 30,
+    width:50,
+    height:50,
+    borderRadius:60,
+    justifyContent: 'center',
   },
   text: {
     fontSize: 18,
@@ -87,7 +101,7 @@ const styles = StyleSheet.create({
   },
   link: {
     flexDirection: 'row',
-    justifyContent: 'center',
+
     flex: 1,
   },
 });
