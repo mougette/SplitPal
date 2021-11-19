@@ -6,7 +6,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Signin from './src/screens/Signin';
 import SignupInfo from './src/screens/SignupInfo';
 import Signup from "./src/screens/Signup";
-import ImageConfirm from "./src/screens/ImageConfirm";
 import HomeScreen from './src/screens/HomeScreen';
 import Friends from './src/screens/Friends';
 import Split from './src/screens/Split';
@@ -16,6 +15,7 @@ import AddGroups from './src/screens/AddGroups';
 import Profile from './src/screens/Profile';
 import AddFriend from './src/screens/AddFriend';
 import CameraScreen from './src/screens/CameraScreen';
+import ImageConfirm from './src/screens/ImageConfirm';
 import {Provider as AuthProvider} from './src/context/AuthContext.js';
 import {Context as AuthContext} from './src/context/AuthContext';
 
@@ -57,8 +57,6 @@ function groupFlow() {
                 component={AddGroups}
             />
             <GroupStack.Screen name="SplitGroup" component={SplitGroup} />
-            <GroupStack.Screen name="CameraScreen" component={CameraScreen} />
-            <GroupStack.Screen name="ImageConfirm" component={ImageConfirm} />
         </GroupStack.Navigator>
     );
 }
@@ -78,6 +76,7 @@ function friendFlow() {
       />
       <FriendStack.Screen name="Split" component={Split} />
       <FriendStack.Screen name="CameraScreen" component={CameraScreen} />
+      <FriendStack.Screen name="ImageConfirm" component={ImageConfirm} />
     </FriendStack.Navigator>
   );
 }
