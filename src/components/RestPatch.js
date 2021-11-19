@@ -1,5 +1,5 @@
  const Patch = (url, body) => {
-    fetch(url, {
+    return fetch(url, {
       method: 'PATCH',
       body: body
     }).then((response) => response.json())
