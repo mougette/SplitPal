@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, Button, Navigation } from 'react-native'
 
 const ImageConfirm = ({navigation},props) => {
   return (
+    console.log(props.image)
     <View style = {styles.master}>
         <View style={{height: 300, flex: 1,}}>
             <View style={styles.container}>
