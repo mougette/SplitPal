@@ -28,9 +28,18 @@ class SplitGroup extends Component {
      });
 
   }
+  addEntry = () =>{
+      let dataArray = this.state.inputData;
+      let owedArray = []
+      dataArray.push({'transDesc': "NULL",'price':"NULL", 'users' : owedArray});
+      this.setState({
+        inputData: dataArray
+      });
+  }
   //function to add TextInput dynamically
   addTextInput = (index) => {
     let textInput = this.state.textInput;
+    this.addEntry()
     textInput.push(<View  key = {index}><View style= {styles.row}>
     <TextInput style={styles.input}
       onChangeText={(text) => this.addValues(text, index, true)} />
@@ -84,15 +93,11 @@ class SplitGroup extends Component {
     });
   }
   else {
-    let owedArray = []
-    dataArray.push({'transDesc': "NULL",'price':"NULL", 'users' : owedArray});
-    this.setState({
-      inputData: dataArray
-    });
   }
   }
   //function to add text from TextInputs into single array
   updateUsers = (email, index) => {
+
     let dataCopy = this.state.inputData;
     let userIndex = dataCopy[index].users.indexOf(email);
         if(userIndex == -1){
