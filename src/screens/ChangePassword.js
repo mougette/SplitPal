@@ -24,7 +24,7 @@ const ChangePassword = ({navigation}) => {
          onChangeText={setOldPassword}
          value={oldPassword}
          label="Old Password"
-         leftIcon={<Icon name="github" type="font-awesome" size={24} />}
+         leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
          autoCorrect={false}
          secureTextEntry
          autoCapitalize="none"
@@ -34,7 +34,7 @@ const ChangePassword = ({navigation}) => {
           onChangeText={setNewPassword1}
           value={newPassword1}
           label="New Password"
-          leftIcon={<Icon name="github" type="font-awesome" size={24} />}
+          leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
           autoCorrect={false}
           secureTextEntry
           autoCapitalize="none"
@@ -44,7 +44,7 @@ const ChangePassword = ({navigation}) => {
            onChangeText={setNewPassword2}
            value={newPassword2}
            label="Confirm New Password"
-           leftIcon={<Icon name="phone" type="font-awesome" size={24} />}
+           leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
            autoCorrect={false}
            secureTextEntry
            autoCapitalize="none"
