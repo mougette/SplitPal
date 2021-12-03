@@ -4,13 +4,8 @@ import {Button, Input, Icon} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 
-const Profile = ({navigation}) => {
+const ChangePassword = ({navigation}) => {
   const {state, signout} = useContext(AuthContext);
-  const [disabled, setDisabled] = useState(true);
-  const [changeButton, setChangeButton] = useState("Change Profile");
-  const {newFirstName, setNewFirstName} = useState('NULL');
-  const {newLastName, setNewLastName} = useState('NULL');
-  const {newPhone, setNewPhone} = useState('1234567890');
   const {oldPassword, setOldPassword} = useState('');
   const {newPassword1, setNewPassword1} = useState('');
   const {newPassword2, setNewPassword2} = useState('');
@@ -23,39 +18,41 @@ const Profile = ({navigation}) => {
   return (
     <View style={styles.master}>
       <SplitPalLogoComponent />
-      <Text style={styles.header}>Welcome, {state.email}</Text>
-      <Image source ={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-             style={{width:60, height:60,borderRadius:30}} />
+      <Text style={styles.header}>Change Password</Text>
       <Input
          placeholder="NULL"
-         onChangeText={setNewFirstName}
-         value={newFirstName}
-         label="First Name"
+         onChangeText={setOldPassword}
+         value={oldPassword}
+         label="Old Password"
          leftIcon={<Icon name="github" type="font-awesome" size={24} />}
          autoCorrect={false}
-         disabled={disabled}
+         secureTextEntry
+         autoCapitalize="none"
        />
        <Input
           placeholder="NULL"
-          onChangeText={setNewLastName}
-          value={newLastName}
-          label="Last Name"
+          onChangeText={setNewPassword1}
+          value={newPassword1}
+          label="New Password"
           leftIcon={<Icon name="github" type="font-awesome" size={24} />}
           autoCorrect={false}
-          disabled={disabled}
+          secureTextEntry
+          autoCapitalize="none"
         />
         <Input
            placeholder="NULL"
-           onChangeText={setNewPhone}
-           value={newPhone}
-           label="Phone Number"
+           onChangeText={setNewPassword2}
+           value={newPassword2}
+           label="Confirm New Password"
            leftIcon={<Icon name="phone" type="font-awesome" size={24} />}
            autoCorrect={false}
-           disabled={disabled}
+           secureTextEntry
+           autoCapitalize="none"
          />
-      <Button onPress={handleEditClick} title={changeButton} type="clear" />
-      <Button onPress={() => navigation.navigate("Change Password")}
+      <Button onPress={console.log("Time to change password")}
         title="Change Password" type="clear" />
+      <Button onPress={() => navigation.navigate("Profile")}
+          title="Back to Profile" type="clear" />
       <Button onPress={signout} title="Ready to Sign out?" type="clear" />
     </View>
   );
@@ -74,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default ChangePassword;

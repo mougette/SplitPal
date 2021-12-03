@@ -13,6 +13,7 @@ import SplitGroup from './src/screens/SplitGroup';
 import Groups from './src/screens/Groups';
 import AddGroups from './src/screens/AddGroups';
 import Profile from './src/screens/Profile';
+import ChangePassword from './src/screens/ChangePassword';
 import AddFriend from './src/screens/AddFriend';
 import CameraScreen from './src/screens/CameraScreen';
 import ImageConfirm from './src/screens/ImageConfirm';
@@ -83,6 +84,24 @@ function friendFlow() {
   );
 }
 
+const ProfileStack = createStackNavigator();
+function profileFlow() {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        options={{headerShown: false}}
+        name="Profile"
+        component={Profile}
+      />
+      <ProfileStack.Screen
+        options={{headerShown: false}}
+        name="Change Password"
+        component={ChangePassword}
+      />
+    </ProfileStack.Navigator>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 function homeFlow() {
   return (
@@ -117,7 +136,7 @@ function homeFlow() {
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="Friends" component={friendFlow} />
       <Tab.Screen name="Groups" component={groupFlow} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={profileFlow} />
     </Tab.Navigator>
   );
 }
