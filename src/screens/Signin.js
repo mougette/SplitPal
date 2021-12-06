@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {Icon} from 'react-native-elements';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
@@ -11,41 +11,44 @@ const Signin = ({navigation}) => {
   const {state, signin} = useContext(AuthContext);
 
   return (
-    <View style={styles.master}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.master}>
 
-      <SplitPalLogoComponent />
-      <Input
-        placeholder="Email"
-        onChangeText={setEmail}
-        value={email}
-        leftIcon={<Icon name="envelope" type="font-awesome" size={24} />}
-        textContentType="emailAddress"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <Input
-        placeholder="Password"
-        onChangeText={setPassword}
-        value={password}
-        leftIcon={<Icon name="key" type="font-awesome" size={24} />}
-        secureTextEntry
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <Button
-        title="Login"
-        type="clear"
-        onPress={() => {
-          signin({email, password});
-        }}
-      />
-      <View style={styles.link}>
-        <Text style={styles.text}>Dont have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Signup") }>
-          <Text style={styles.blueText}>Sign up Here.</Text>
-        </TouchableOpacity>
+        <SplitPalLogoComponent />
+        <Input
+          placeholder="Email"
+          onChangeText={setEmail}
+          value={email}
+          leftIcon={<Icon name="envelope" type="font-awesome" size={24} />}
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Input
+          placeholder="Password"
+          onChangeText={setPassword}
+          value={password}
+          leftIcon={<Icon name="key" type="font-awesome" size={24} />}
+          secureTextEntry
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Button
+          title="Login"
+          type="clear"
+          onPress={() => {
+            signin({email, password});
+          }}
+        />
+        <View style={styles.link}>
+          <Text style={styles.text}>Dont have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Signup") }>
+            <Text style={styles.blueText}>Sign up Here.</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
