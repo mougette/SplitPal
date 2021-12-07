@@ -15,7 +15,7 @@ const CameraScreen = ({ route,navigation}) => {
   const takePicture = async () => {
       if (!camera) return
       const photo = await camera.takePictureAsync({
-                    quality : 0.01,
+                    quality : 0.1,
                     base64: true,
                   })
       setCapturedImage(photo)

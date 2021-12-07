@@ -19,13 +19,24 @@ class Split extends Component {
   componentDidUpdate(prevProps) {
   if (this.props.route.params[2] !== prevProps.route.params[2]) {
   console.log(this.props.route.params[2])
-  for(let i = 0; i < this.props.route.params[2].items.length; i++){
+  let start = this.state.inputData.length
+  let newMax = this.state.inputData.length+this.props.route.params[2].items.length
+  for(let i = start; i < newMax; i++){
     console.log(i)
-    this.addTextInput(i,this.props.route.params[2].items[i][0],this.props.route.params[2].items[i][1])
+    this.addTextInput(i,this.props.route.params[2].items[i-start][0],parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString())
+    console.log(this.state.inputData)
   }
-  this.setState({
-        inputData: this.props.route.params[2].items
+  for(let i = start; i < newMax; i++){
+      let dataArray = this.state.inputData;
+      let owedArray = [this.email, this.friend.Email]
+           dataArray.push({'transDesc': this.props.route.params[2].items[i-start][0],
+           'price': parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString(),
+           'users' : owedArray});
+           this.setState({
+             inputData: dataArray
       });
+      console.log(this.state.inputData)
+    }
   }
 
   }
