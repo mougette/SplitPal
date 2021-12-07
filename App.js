@@ -17,6 +17,7 @@ import ChangePassword from './src/screens/ChangePassword';
 import AddFriend from './src/screens/AddFriend';
 import CameraScreen from './src/screens/CameraScreen';
 import ImageConfirm from './src/screens/ImageConfirm';
+import Transactions from './src/screens/Transactions';
 import {Provider as AuthProvider} from './src/context/AuthContext.js';
 import {Context as AuthContext} from './src/context/AuthContext';
 
@@ -63,6 +64,7 @@ function groupFlow() {
         </GroupStack.Navigator>
     );
 }
+
 const FriendStack = createStackNavigator();
 function friendFlow() {
   return (
@@ -81,6 +83,24 @@ function friendFlow() {
       <FriendStack.Screen name="CameraScreen" component={CameraScreen} />
       <FriendStack.Screen name="ImageConfirm" component={ImageConfirm} initialParams={{ stack: "friend" }}/>
     </FriendStack.Navigator>
+  );
+}
+
+const HomeScreenStack = createStackNavigator();
+function homeScreenFlow() {
+  return (
+    <HomeScreenStack.Navigator>
+      <HomeScreenStack.Screen
+        options={{headerShown: false}}
+        name="HomeScreen"
+        component={HomeScreen}
+      />
+      <HomeScreenStack.Screen
+        options={{headerShown: false}}
+        name="Transactions"
+        component={Transactions}
+      />
+    </HomeScreenStack.Navigator>
   );
 }
 
@@ -133,7 +153,7 @@ function homeFlow() {
           tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="HomeScreen" component={homeScreenFlow} />
       <Tab.Screen name="Friends" component={friendFlow} />
       <Tab.Screen name="Groups" component={groupFlow} />
       <Tab.Screen name="Profile" component={profileFlow} />

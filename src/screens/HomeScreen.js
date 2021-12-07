@@ -23,6 +23,7 @@ const HomeScreen = ({navigation}) => {
 
   const renderItem = ( {item,index} ) => {
     return (
+      <TouchableOpacity onPress={() => navigation.navigate("Transactions", {itemEmail: item.Email,})}>
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
             name={item.FirstName+" "+item.LastName}
@@ -34,6 +35,7 @@ const HomeScreen = ({navigation}) => {
                                             amount:item.balance,
                                             usersOwed:item.Email}],}))}
         ></Entry>
+      </TouchableOpacity>
     );
   };
 
