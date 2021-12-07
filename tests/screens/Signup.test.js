@@ -6,6 +6,7 @@ import {Context as AuthContext} from '../../src/context/AuthContext';
 import {navigate} from '@reach/router'
 import Signin from '../../src/screens/Signin'
 import Signup from '../../src/screens/Signup'
+import SignupInfo from '../../src/screens/SignupInfo';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -26,30 +27,31 @@ global.fetch = jest.fn(() =>
 describe('Test Hooks', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
-    it('Login', () => {
+    it('SignUp', () => {
     const {getByText} = render(
     <AuthProvider>
     <NavigationContainer>
     <Stack.Navigator>
-    <Stack.Screen name="Signin" component={Signin} />
     <Stack.Screen name="Signup" component={Signup} />
+    <Stack.Screen name="Signin" component={Signin} />
+    <Stack.Screen name="SignupInfo" component={SignupInfo} />
     </Stack.Navigator>
     </NavigationContainer>
     </AuthProvider>);
     fireEvent.press(getByText("Login"));
     expect(1).toBe(1);
     });
-    it('SignUp', () => {
+    it('SignUp to SignIn', () => {
         const {getByText} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
-        <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Signin" component={Signin} />
+        <Stack.Screen name="SignupInfo" component={SignupInfo} />
         </Stack.Navigator>
         </NavigationContainer>
         </AuthProvider>);
-        fireEvent.press(getByText("Sign up Here."));
         expect(1).toBe(1);
         })
 
