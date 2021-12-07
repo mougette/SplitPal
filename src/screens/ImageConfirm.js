@@ -14,7 +14,7 @@ const ImageConfirm = ({ route, navigation}) => {
                                                                                           JSON.stringify({
                                                                                            image: photo.base64,
                                                                                            }))
-        .then(response => stack == "group" ? navigation.navigate("SplitGroup") : navigation.navigate("Split", [{item}, {state}, response]));
+        .then(response => stack == "group" ? navigation.navigate("SplitGroup", [{item}, {state}, response]) : navigation.navigate("Split", [{item}, {state}, response]));
  }
   return (
     <View style = {styles.master}>

@@ -10,7 +10,7 @@ class SplitGroup extends Component {
   constructor(props){
     super(props);
     console.log(props.route.params[0].item)
-    this.groupID = props.route.params[0].item.GroupID
+    this.group = props.route.params[0].item
     this.email = props.route.params[1].state.email
     this.state = {
       groupMembers: [],
@@ -21,13 +21,37 @@ class SplitGroup extends Component {
   componentDidMount(){
   let groupMembers = this.state.groupMembers;
   console.log("test")
-  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-member-view","?groupID="+this.groupID+"&userEmail="+this.email)
+  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-member-view","?groupID="+this.group.GroupID+"&userEmail="+this.email)
      .then(response => {
      groupMembers = JSON.parse(response);
      this.setState({ groupMembers });
      });
 
   }
+    componentDidUpdate(prevProps) {
+    if (this.props.route.params[2] !== prevProps.route.params[2]) {
+    console.log(this.props.route.params[2])
+    let start = this.state.inputData.length
+    let newMax = this.state.inputData.length+this.props.route.params[2].items.length
+    for(let i = start; i < newMax; i++){
+      console.log(i)
+      this.addTextInput(i,this.props.route.params[2].items[i-start][0],parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString())
+      console.log(this.state.inputData)
+    }
+    for(let i = start; i < newMax; i++){
+        let dataArray = this.state.inputData;
+        let owedArray = []
+             dataArray.push({'transDesc': this.props.route.params[2].items[i-start][0],
+             'price': parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString(),
+             'users' : owedArray});
+             this.setState({
+               inputData: dataArray
+        });
+        console.log(this.state.inputData)
+      }
+    }
+
+    }
   addEntry = () =>{
       let dataArray = this.state.inputData;
       let owedArray = []
@@ -37,14 +61,16 @@ class SplitGroup extends Component {
       });
   }
   //function to add TextInput dynamically
-  addTextInput = (index) => {
+  addTextInput = (index, field1, field2) => {
     let textInput = this.state.textInput;
     this.addEntry()
     textInput.push(<View  key = {index}><View style= {styles.row}>
     <TextInput style={styles.input}
-      onChangeText={(text) => this.addValues(text, index, true)} />
+      onChangeText={(text) => this.addValues(text, index, true)}
+      value={field1}/>
       <TextInput style={styles.input2}
-            onChangeText={(text) => this.addValues(text, index, false)} />
+            onChangeText={(text) => this.addValues(text, index, false)}
+            value={field2}/>
       </View>
       <View style= {styles.row}>
         {this.state.groupMembers.map((item, subindex) => {
@@ -114,7 +140,7 @@ class SplitGroup extends Component {
   getValues = () => {
   let body =  JSON.stringify({
                               sender: this.email,
-                              groupID: this.groupID,
+                              groupID: this.group.GroupID,
                               receiptDesc: "NULL",
                               transactions: this.state.inputData,
                               })
@@ -156,7 +182,7 @@ class SplitGroup extends Component {
         <TouchableOpacity style={styles.blueTextButton} onPress={() => this.getValues()}>
                         <Text style={{color: "black", fontSize: 25}}>Submit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.blueTextButton} onPress={() => navigation.navigate("CameraScreen")}>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => navigation.navigate("CameraScreen",{'item': this.group})}>
                         <Text style={{color: "black", fontSize: 13}}>Use Camera</Text>
         </TouchableOpacity>
         </View>
