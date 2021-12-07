@@ -259,6 +259,7 @@ textButton: {
     },
 row:{
   flexDirection: 'row',
+  flexWrap: "wrap",
   justifyContent: 'center'
   },
 });
