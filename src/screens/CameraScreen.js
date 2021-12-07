@@ -4,21 +4,22 @@ import {Button} from 'react-native-elements';
 import { Camera } from 'expo-camera';
 import {Context as AuthContext} from '../context/AuthContext';
 
-const CameraScreen = ({navigation}) => {
+const CameraScreen = ({ route,navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [load, setLoad] = useState(true);
   const [capturedImage, setCapturedImage] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
-
+   const { item } = route.params;
   const takePicture = async () => {
       if (!camera) return
       const photo = await camera.takePictureAsync({
+                    quality : 0.01,
                     base64: true,
                   })
       setCapturedImage(photo)
-          navigation.navigate('ImageConfirm',{'photo': photo});
+          navigation.navigate('ImageConfirm',{'photo': photo, 'item': item});
 
     };
     const submitPicture = async() =>{

@@ -1,11 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, Image, Button, Navigation } from 'react-native';
+import {Post} from '../components/RestPost';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const ImageConfirm = ({ route, navigation}) => {
-console.log(route)
+ const {state, signout} = useContext(AuthContext);
  const { photo } = route.params;
  const { stack } = route.params;
+ const { item } = route.params;
+ const imageParse = () => {
+ Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/receipt-translate",
+                                                                                          JSON.stringify({
+                                                                                           image: photo.base64,
+                                                                                           }))
+        .then(response => stack == "group" ? navigation.navigate("SplitGroup") : navigation.navigate("Split", [{item}, {state}, response]));
+ }
   return (
     <View style = {styles.master}>
         <View style={{height: 300, flex: 1,}}>
@@ -18,10 +28,10 @@ console.log(route)
 
             </View>
             <View style={{height: 40,}}>
-                <Button title = "Confirm" onPress = { () => stack == "group" ? navigation.navigate("SplitGroup") : navigation.navigate("Split")}/>
+                <Button title = "Confirm" onPress = {imageParse}/>
             </View>
             <View style={{height: 40,}}>
-                <Button title = "Retry" onPress = { () => navigation.navigate("CameraScreen") }/>
+                <Button title = "Retry" onPress = { () => navigation.navigate("CameraScreen"),{'item' : {item}} }/>
             </View>
             </View>
         </View>

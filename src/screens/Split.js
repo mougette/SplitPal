@@ -7,23 +7,39 @@ class Split extends Component {
 
   constructor(props){
     super(props);
+    console.log(props.route.params[0])
     this.friend = props.route.params[0].item
     this.email = props.route.params[1].state.email
-    console.log(props)
+    console.log(props.route.params[2] == "NULL" ? "test" : props.route.params[2])
     this.state = {
       textInput : [],
       inputData : []
     }
   }
+  componentDidUpdate(prevProps) {
+  if (this.props.route.params[2] !== prevProps.route.params[2]) {
+  console.log(this.props.route.params[2])
+  for(let i = 0; i < this.props.route.params[2].items.length; i++){
+    console.log(i)
+    this.addTextInput(i,this.props.route.params[2].items[i][0],this.props.route.params[2].items[i][1])
+  }
+  this.setState({
+        inputData: this.props.route.params[2].items
+      });
+  }
+
+  }
 
   //function to add TextInput dynamically
-  addTextInput = (index) => {
+  addTextInput = (index,field1,field2) => {
     let textInput = this.state.textInput;
     textInput.push(<View key = {index} style= {styles.row}>
     <TextInput style={styles.input}
-      onChangeText={(text) => this.addValues(text, index, true)} />
+      onChangeText={(text) => this.addValues(text, index, true)}
+      value={field1}/>
       <TextInput style={styles.input2}
-            onChangeText={(text) => this.addValues(text, index, false)} />
+            onChangeText={(text) => this.addValues(text, index, false)}
+            value={field2}/>
       </View>
       );
     this.setState({ textInput });
@@ -59,7 +75,7 @@ class Split extends Component {
     });
   }
   else {
-    let owedArray = [this.friend.Email]
+    let owedArray = [this.email, this.friend.Email]
     dataArray.push({'transDesc': "NULL",'price':"NULL", 'users' : owedArray});
     this.setState({
       inputData: dataArray
@@ -102,7 +118,7 @@ class Split extends Component {
               })}
         <View style= {styles.row}>
           <View style={{margin: 10}}>
-        <TouchableOpacity style={styles.blueTextButton} onPress={() => this.addTextInput(this.state.textInput.length)}>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => this.addTextInput(this.state.textInput.length,"","")}>
                         <Text style={{color: "black", fontSize: 18}}>+</Text>
         </TouchableOpacity>
         </View>
@@ -117,7 +133,7 @@ class Split extends Component {
         <TouchableOpacity style={styles.blueTextButton} onPress={() => this.getValues()}>
                         <Text style={{color: "black", fontSize: 25}}>Submit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.blueTextButton} onPress={() => navigation.navigate("CameraScreen")}>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => navigation.navigate("CameraScreen",{'item': this.friend})}>
                         <Text style={{color: "black", fontSize: 13}}>Use Camera</Text>
         </TouchableOpacity>
         </View>
