@@ -24,6 +24,7 @@ class SplitGroup extends Component {
   Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/group-member-view","?groupID="+this.group.GroupID+"&userEmail="+this.email)
      .then(response => {
      groupMembers = JSON.parse(response);
+     groupMembers.push({firstName: "myself", lastName: "", email : this.email,})
      this.setState({ groupMembers });
      });
 
