@@ -46,9 +46,11 @@ class Split extends Component {
     let textInput = this.state.textInput;
     textInput.push(<View key = {index} style= {styles.row}>
     <TextInput style={styles.input}
+      testID="ItemName"
       onChangeText={(text) => this.addValues(text, index, true)}
       value={field1}/>
       <TextInput style={styles.input2}
+            testID="ItemPrice"
             onChangeText={(text) => this.addValues(text, index, false)}
             value={field2}/>
       </View>

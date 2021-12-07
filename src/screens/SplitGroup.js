@@ -26,18 +26,16 @@ class SplitGroup extends Component {
      groupMembers = JSON.parse(response);
      groupMembers.push({firstName: "myself", lastName: "", email : this.email,})
      this.setState({ groupMembers });
+     console.log(groupMembers)
      });
 
   }
     componentDidUpdate(prevProps) {
     if (this.props.route.params[2] !== prevProps.route.params[2]) {
-    console.log(this.props.route.params[2])
     let start = this.state.inputData.length
     let newMax = this.state.inputData.length+this.props.route.params[2].items.length
     for(let i = start; i < newMax; i++){
-      console.log(i)
       this.addTextInput(i,this.props.route.params[2].items[i-start][0],parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString())
-      console.log(this.state.inputData)
     }
     for(let i = start; i < newMax; i++){
         let dataArray = this.state.inputData;
@@ -48,7 +46,6 @@ class SplitGroup extends Component {
              this.setState({
                inputData: dataArray
         });
-        console.log(this.state.inputData)
       }
     }
 
@@ -64,14 +61,15 @@ class SplitGroup extends Component {
   //function to add TextInput dynamically
   addTextInput = (index, field1, field2) => {
     let textInput = this.state.textInput;
-    this.addEntry()
     textInput.push(<View  key = {index}><View style= {styles.row}>
     <TextInput style={styles.input}
       onChangeText={(text) => this.addValues(text, index, true)}
-      value={field1}/>
+      value={field1}
+      testID="ItemName"/>
       <TextInput style={styles.input2}
             onChangeText={(text) => this.addValues(text, index, false)}
-            value={field2}/>
+            value={field2}
+            testID="ItemPrice"/>
       </View>
       <View style= {styles.row}>
         {this.state.groupMembers.map((item, subindex) => {
@@ -120,12 +118,16 @@ class SplitGroup extends Component {
     });
   }
   else {
+  this.addEntry()
   }
   }
   //function to add text from TextInputs into single array
   updateUsers = (email, index) => {
 
     let dataCopy = this.state.inputData;
+    if(dataCopy[index] == undefined){
+    this.addEntry()
+    }
     let userIndex = dataCopy[index].users.indexOf(email);
         if(userIndex == -1){
             dataCopy[index].users.push(email);

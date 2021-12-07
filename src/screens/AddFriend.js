@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, TouchableOpacity, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, Button, TextInput, FlatList, SafeAreaView, TouchableOpacity, ImageBackground, Alert} from 'react-native';
 import Entry from "../components/EntryComponent";
 import AddFriendBar from "../components/AddFriendBar";
 import {Get} from '../components/RestGet';
+import Patch from '../components/RestPatch';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
 import { Context as AuthContext } from "../context/AuthContext";
 

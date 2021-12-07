@@ -41,8 +41,9 @@ describe('Friends', () => {
                 expect(1).toBe(1);
                 });
                 })
-    it('Click Split', async () => {
-    jest.spyOn(Alert, 'alert');
+    it('Click Accept', async () => {
+    jest.useFakeTimers()
+    Alert.alert = jest.fn();
                     const {getAllByText} = render(
                     <AuthProvider>
                     <NavigationContainer>
@@ -53,7 +54,11 @@ describe('Friends', () => {
                     </AuthProvider>);
                     await waitFor(() => {
                     fireEvent.press(getAllByText("Accept")[0]);
-                    expect(Alert.alert).toHaveBeenCalledWith("Accept friend request?");
+                    Alert.alert.mock.calls[0][2][0].onPress()
+                    jest.advanceTimersByTime(3000)
+                    Alert.alert.mock.calls[0][2][1].onPress()
+                    jest.advanceTimersByTime(3000)
+                    expect(Alert.alert.mock.calls.length).toBe(1);
                     });
                     })
     it('Click Add Friend', async () => {
