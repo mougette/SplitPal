@@ -84,7 +84,7 @@ Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/friend-r
               image='https://reactnative.dev/img/tiny_logo.png'
               name={item.FirstName+item.LastName}
               balance={item.Balance}
-              onPress = { () => navigation.navigate("Split", [{item}, {state}]) }
+              onPress = { () => navigation.navigate("Split", [{item}, {state}, "NULL"]) }
           ></Entry>
       );
       }
