@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image, SafeAreaView, FlatList } from 'react-nati
 import {Button, Input, Icon} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
+import Entry from "../components/EntryComponent";
 import {Get} from '../components/RestGet';
 
 const Transactions = ({route, navigation}) => {
@@ -11,14 +12,15 @@ const Transactions = ({route, navigation}) => {
   const [DATA, setDATA] = useState("");
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-    Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction","?userEmail="+state.email+"&friendEmail="+itemEmail)
-       .then(response => setDATA(response));
-    });
-    return unsubscribe
-    },[navigation]);
+  const unsubscribe = navigation.addListener('focus', () => {
+  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction","?userEmail="+state.email+"&friendEmail="+itemEmail)
+      .then(response => setDATA(response));
+  });
+  return unsubscribe
+  },[navigation]);
 
   const renderItem = ( {item,index} ) => {
+    console.log(item);
     return (
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
@@ -29,7 +31,7 @@ const Transactions = ({route, navigation}) => {
     );
   };
 
-
+  
   return (
     <View style={styles.master}>
       <SplitPalLogoComponent />
@@ -41,9 +43,9 @@ const Transactions = ({route, navigation}) => {
 
       <SafeAreaView style={styles.containerTop}>
         <FlatList
-            data={DATA == "" ? DATA : DATA.splice(1)}
+            data={DATA}
             renderItem={renderItem}
-            keyExtractor = {(item, index) => index.toString()}
+            keyExtractor = {(item) => item.transactionID}
             extraData={DATA}
         />
       </SafeAreaView>
