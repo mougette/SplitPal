@@ -14,7 +14,7 @@ import { Alert } from 'react-native';
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
-    json: () => Promise.resolve("[{\"FirstName\": \"2\", \"LastName\": \"2\", \"Email\": \"abc@e.com\", \"Balance\": \"Accept\"}, {\"FirstName\": \"fake\", \"LastName\": \"1\", \"Email\": \"fake1@gmail.com\", \"Balance\": \"Split\"}, {\"FirstName\": \"fake\", \"LastName\": \"5\", \"Email\": \"fake5@gmail.com\", \"Balance\": \"Split\"}, {\"FirstName\": \"hi\", \"LastName\": \"there\", \"Email\": \"newEmail@test.com\", \"Balance\": \"Split\"}, {\"FirstName\": \"Sam\", \"LastName\": \"Hogenson\", \"Email\": \"shogenson@wisc.edu\", \"Balance\": \"Split\"}, {\"FirstName\": \"test\", \"LastName\": \"today\", \"Email\": \"testing@test.com\", \"Balance\": \"Split\"}]"),
+    json: () => Promise.resolve("[{\"FirstName\": \"2\", \"LastName\": \"2\", \"Email\": \"abc@e.com\", \"Balance\": \"Accept\"}, {\"FirstName\": \"fake\", \"LastName\": \"1\", \"Email\": \"fake1@gmail.com\", \"Balance\": \"Pending\"}, {\"FirstName\": \"fake\", \"LastName\": \"5\", \"Email\": \"fake5@gmail.com\", \"Balance\": \"Split\"}, {\"FirstName\": \"hi\", \"LastName\": \"there\", \"Email\": \"newEmail@test.com\", \"Balance\": \"Split\"}, {\"FirstName\": \"Sam\", \"LastName\": \"Hogenson\", \"Email\": \"shogenson@wisc.edu\", \"Balance\": \"Split\"}, {\"FirstName\": \"test\", \"LastName\": \"today\", \"Email\": \"testing@test.com\", \"Balance\": \"Split\"}]"),
   })
   );
   const createTestProps = (props: Object) => ({
@@ -25,8 +25,8 @@ global.fetch = jest.fn(() =>
   });
 describe('Test Hooks', () => {
     const Stack = createBottomTabNavigator();
-    it('Render', async () => {
-        const {getByText} = render(
+    it('Render Snapshot', async () => {
+        const {asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -35,12 +35,13 @@ describe('Test Hooks', () => {
         </NavigationContainer>
         </AuthProvider>);
         await waitFor(() => {
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot();
         })
         })
         it('Click Accept', async () => {
         jest.useFakeTimers();
         Alert.alert = jest.fn();
+        const Patch = global.fetch;
                         const {getAllByText} = render(
                         <AuthProvider>
                         <NavigationContainer>
@@ -51,16 +52,18 @@ describe('Test Hooks', () => {
                         </AuthProvider>);
                         await waitFor(() => {
                         fireEvent.press(getAllByText("Accept")[0]);
+                        });
+                        expect(Patch).toBeCalledTimes(2);
                         Alert.alert.mock.calls[0][2][0].onPress()
                         jest.advanceTimersByTime(3000)
+                        expect(Patch).toBeCalledTimes(4);
                         Alert.alert.mock.calls[0][2][1].onPress()
                         jest.advanceTimersByTime(3000)
-                        expect(1).toBe(1);
-                        });
+                        expect(Patch).toBeCalledTimes(6);
                         })
 
     it('Click', async () => {
-            const {getByText} = render(
+            const {getAllByText} = render(
             <AuthProvider>
             <NavigationContainer>
             <Stack.Navigator>
@@ -69,6 +72,8 @@ describe('Test Hooks', () => {
             </NavigationContainer>
             </AuthProvider>);
             await waitFor(() => {
+            fireEvent.press(getAllByText("Pending")[0]);
+            fireEvent.press(getAllByText("Back.")[0]);
             expect(1).toBe(1);
             })
             })
