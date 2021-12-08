@@ -70,7 +70,7 @@ describe('Profile tests', () => {
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
-        <Stack.Screen name="Transactions" component={Transactions} />
+        <Stack.Screen name="Transactions" component={Transactions} initialParams ={{itemEmail : "e@something.com"}} />
         </Stack.Navigator>
         </NavigationContainer>
         </AuthProvider>);

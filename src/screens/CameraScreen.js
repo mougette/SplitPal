@@ -7,6 +7,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 const CameraScreen = ({ route,navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const [hasPermission, setHasPermission] = useState(null);
+  console.log(Camera)
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [load, setLoad] = useState(true);
   const [capturedImage, setCapturedImage] = useState(null);

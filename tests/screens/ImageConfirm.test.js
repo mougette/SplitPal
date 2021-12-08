@@ -1,14 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { fireEvent, render, screen } from '@testing-library/react-native'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native'
 import {Provider as AuthProvider} from '../../src/context/AuthContext.js';
 import {Context as AuthContext} from '../../src/context/AuthContext';
 import {navigate} from '@reach/router'
-import CameraScreen from '../../src/screens/CameraScreen'
+import ImageConfirm from '../../src/screens/ImageConfirm'
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import mockCamera from '../__mocks__/Camera';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -63,21 +62,23 @@ global.fetch = jest.fn(() =>
     },
     ...props
   });
-  jest.mock('expo-camera', () => mockCamera);
-describe('Change Password tests', () => {
+describe('Image Confirm', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
-    it('render', () => {
+    it('Render', async () => {
         const {getByText} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
-        <Stack.Screen name="CameraScreen" component={CameraScreen} />
+        <Stack.Screen name="ImageConfirm" component={ImageConfirm} initialParams ={{itemEmail : "e@something.com"},{photo :{uri: 'https://reactnative.dev/img/tiny_logo.png'}}} />
         </Stack.Navigator>
         </NavigationContainer>
         </AuthProvider>);
+        await waitFor(() => {
+        fireEvent.press(getByText("Confirm"))
+        fireEvent.press(getByText("Retry"))
         expect(1).toBe(1);
-        })
+        })})
 
 
 });

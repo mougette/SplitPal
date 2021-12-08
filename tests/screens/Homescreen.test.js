@@ -75,6 +75,7 @@ describe('Test Hooks', () => {
         </NavigationContainer>
         </AuthProvider>);
         await waitFor(() => {
+        fireEvent.press(getByText("-19.5"))
         expect(1).toBe(1);
         })
         })

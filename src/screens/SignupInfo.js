@@ -41,6 +41,7 @@ const SignupInfo = ({  navigation, route }) => {
         title="Login"
         type="clear"
         onPress={() => {
+            console.log("I SIGNED IN")
           signup({email, password, password2, firstName, lastName, phoneNumber});
         }}
       />
