@@ -14,7 +14,7 @@ const Transactions = ({route, navigation}) => {
   useEffect(() => {
   const unsubscribe = navigation.addListener('focus', () => {
   Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction","?userEmail="+state.email+"&friendEmail="+itemEmail)
-      .then(response => setDATA(response));
+      .then(response => setDATA(JSON.parse(response)));
   });
   return unsubscribe
   },[navigation]);
