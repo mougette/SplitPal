@@ -1,26 +1,37 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, SafeAreaView, FlatList } from 'react-native';
 import {Button, Input, Icon} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
+import Entry from "../components/EntryComponent";
+import {Get} from '../components/RestGet';
 
 const Transactions = ({route, navigation}) => {
   const {itemEmail} = route.params;
   const {state, signout} = useContext(AuthContext);
   const [DATA, setDATA] = useState("");
 
+  useEffect(() => {
+  const unsubscribe = navigation.addListener('focus', () => {
+  Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction","?userEmail="+state.email+"&friendEmail="+itemEmail)
+      .then(response => setDATA(response));
+  });
+  return unsubscribe
+  },[navigation]);
+
   const renderItem = ( {item,index} ) => {
+    console.log(item);
     return (
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
-            name={item.FirstName+" "+item.LastName}
-            balance={item.Balance.toString()}
+            name={item.description}
+            balance={item.amount.toString()}
             onPress = {() => console.log("TODO: Entry Pressed on Transactions Screen")}
         ></Entry>
     );
   };
 
-
+  
   return (
     <View style={styles.master}>
       <SplitPalLogoComponent />
@@ -32,9 +43,9 @@ const Transactions = ({route, navigation}) => {
 
       <SafeAreaView style={styles.containerTop}>
         <FlatList
-            data={DATA == "" ? DATA : DATA.splice(1)}
+            data={DATA}
             renderItem={renderItem}
-            keyExtractor = {(item, index) => index.toString()}
+            keyExtractor = {(item) => item.transactionID}
             extraData={DATA}
         />
       </SafeAreaView>
@@ -57,3 +68,4 @@ const styles = StyleSheet.create({
 });
 
 export default Transactions;
+ 
