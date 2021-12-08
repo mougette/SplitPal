@@ -35,9 +35,6 @@ class SplitGroup extends Component {
     let start = this.state.inputData.length
     let newMax = this.state.inputData.length+this.props.route.params[2].items.length
     for(let i = start; i < newMax; i++){
-      this.addTextInput(i,this.props.route.params[2].items[i-start][0],parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString())
-    }
-    for(let i = start; i < newMax; i++){
         let dataArray = this.state.inputData;
         let owedArray = []
              dataArray.push({'transDesc': this.props.route.params[2].items[i-start][0],
@@ -47,6 +44,9 @@ class SplitGroup extends Component {
                inputData: dataArray
         });
       }
+    for(let i = start; i < newMax; i++){
+          this.addTextInput(i)
+        }
     }
 
     }
@@ -59,16 +59,16 @@ class SplitGroup extends Component {
       });
   }
   //function to add TextInput dynamically
-  addTextInput = (index, field1, field2) => {
+  addTextInput = (index) => {
     let textInput = this.state.textInput;
     textInput.push(<View  key = {index}><View style= {styles.row}>
     <TextInput style={styles.input}
       onChangeText={(text) => this.addValues(text, index, true)}
-      value={field1}
+      defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price}
       testID="ItemName"/>
       <TextInput style={styles.input2}
             onChangeText={(text) => this.addValues(text, index, false)}
-            value={field2}
+            defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price}
             testID="ItemPrice"/>
       </View>
       <View style= {styles.row}>

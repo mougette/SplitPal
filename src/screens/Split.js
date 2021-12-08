@@ -22,11 +22,6 @@ class Split extends Component {
   let start = this.state.inputData.length
   let newMax = this.state.inputData.length+this.props.route.params[2].items.length
   for(let i = start; i < newMax; i++){
-    console.log(i)
-    this.addTextInput(i,this.props.route.params[2].items[i-start][0],parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString())
-    console.log(this.state.inputData)
-  }
-  for(let i = start; i < newMax; i++){
       let dataArray = this.state.inputData;
       let owedArray = [this.email, this.friend.Email]
            dataArray.push({'transDesc': this.props.route.params[2].items[i-start][0],
@@ -37,22 +32,28 @@ class Split extends Component {
       });
       console.log(this.state.inputData)
     }
+
+    for(let i = start; i < newMax; i++){
+      console.log(i)
+      this.addTextInput(i)
+      console.log(this.state.inputData)
+    }
   }
 
   }
 
   //function to add TextInput dynamically
-  addTextInput = (index,field1,field2) => {
+  addTextInput = (index) => {
     let textInput = this.state.textInput;
     textInput.push(<View key = {index} style= {styles.row}>
     <TextInput style={styles.input}
       testID="ItemName"
       onChangeText={(text) => this.addValues(text, index, true)}
-      value={field1}/>
+      defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].transDesc}/>
       <TextInput style={styles.input2}
             testID="ItemPrice"
             onChangeText={(text) => this.addValues(text, index, false)}
-            value={field2}/>
+            defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price}/>
       </View>
       );
     this.setState({ textInput });
@@ -131,7 +132,7 @@ class Split extends Component {
               })}
         <View style= {styles.row}>
           <View style={{margin: 10}}>
-        <TouchableOpacity style={styles.blueTextButton} onPress={() => this.addTextInput(this.state.textInput.length,"","")}>
+        <TouchableOpacity style={styles.blueTextButton} onPress={() => this.addTextInput(this.state.textInput.length)}>
                         <Text style={{color: "black", fontSize: 18}}>+</Text>
         </TouchableOpacity>
         </View>

@@ -7,7 +7,6 @@ import {Context as AuthContext} from '../context/AuthContext';
 const CameraScreen = ({ route,navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const [hasPermission, setHasPermission] = useState(null);
-  console.log(Camera)
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [load, setLoad] = useState(true);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -16,7 +15,7 @@ const CameraScreen = ({ route,navigation}) => {
   const takePicture = async () => {
       if (!camera) return
       const photo = await camera.takePictureAsync({
-                    quality : 0.1,
+                    quality : 0.4,
                     base64: true,
                   })
       setCapturedImage(photo)
