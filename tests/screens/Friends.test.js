@@ -5,6 +5,7 @@ import {Provider as AuthProvider} from '../../src/context/AuthContext.js';
 import {Context as AuthContext} from '../../src/context/AuthContext';
 import {navigate} from '@reach/router'
 import Friends from '../../src/screens/Friends'
+import Split from '../../src/screens/Split'
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -54,15 +55,17 @@ describe('Friends', () => {
                     </AuthProvider>);
                     await waitFor(() => {
                     fireEvent.press(getAllByText("Accept")[0]);
+                    });
+                    expect(global.fetch).toBeCalledTimes(4);
                     Alert.alert.mock.calls[0][2][0].onPress()
                     jest.advanceTimersByTime(3000)
+                    expect(global.fetch).toBeCalledTimes(7);
                     Alert.alert.mock.calls[0][2][1].onPress()
                     jest.advanceTimersByTime(3000)
                     expect(Alert.alert.mock.calls.length).toBe(1);
-                    });
                     })
     it('Click Add Friend', async () => {
-                const {getByText} = render(
+                const {getByText, asFragment} = render(
                 <AuthProvider>
                 <NavigationContainer>
                 <Stack.Navigator>
@@ -72,7 +75,7 @@ describe('Friends', () => {
                 </AuthProvider>);
                 await waitFor(() => {
                 fireEvent.press(getByText("Add Friend"));
-                expect(1).toBe(1);
+                expect(asFragment).toMatchSnapshot();
                 });
                 })
 

@@ -65,8 +65,8 @@ global.fetch = jest.fn(() =>
 describe('Test Hooks', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
-    it('SignUp to SignIn', async () => {
-        const {getByText} = render(
+    it('render', async () => {
+        const {getByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -76,7 +76,7 @@ describe('Test Hooks', () => {
         </AuthProvider>);
         await waitFor(() => {
         fireEvent.press(getByText("-19.5"))
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot();
         })
         })
 

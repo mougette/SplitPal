@@ -16,25 +16,17 @@ global.fetch = jest.fn(() =>
     json: () => Promise.resolve("User info correct"),
   })
   );
-jest.mock("@react-navigation/native", () => {
-  const actualNav = jest.requireActual("@react-navigation/native");
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      navigate: jest.fn(),
-      dispatch: jest.fn(),
-    }),
-  };
-});
+
 jest.mock('expo-camera', () => { return "test"});
 describe("App", () => {
   it('Login to App', async() => {
 
-     const {getByText} = render(<App/>);
+     const screen = render(<App/>);
 
      await waitFor(() => {
-             fireEvent.press(getByText("Login"))
-             expect(1).toBe(1);
+             fireEvent.press(screen.getByText("Login"))
+             expect(screen.asFragment).toMatchSnapshot();
              })
+
   });
 });

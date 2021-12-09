@@ -63,7 +63,7 @@ describe('Test Hooks', () => {
                         })
 
     it('Click', async () => {
-            const {getAllByText} = render(
+            const {getAllByText, asFragment} = render(
             <AuthProvider>
             <NavigationContainer>
             <Stack.Navigator>
@@ -74,7 +74,7 @@ describe('Test Hooks', () => {
             await waitFor(() => {
             fireEvent.press(getAllByText("Pending")[0]);
             fireEvent.press(getAllByText("Back.")[0]);
-            expect(1).toBe(1);
+            expect(asFragment).toMatchSnapshot();
             })
             })
 

@@ -26,7 +26,7 @@ describe('Test Hooks', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
     it('Render', async () => {
-        const {getByText} = render(
+        const {asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -35,11 +35,11 @@ describe('Test Hooks', () => {
         </NavigationContainer>
         </AuthProvider>);
        await waitFor(() => {
-          expect(1).toBe(1);
+          expect(asFragment).toMatchSnapshot();
          });
         })
     it('Click Create Group', async () => {
-                const {getByText} = render(
+                const {getByText, asFragment} = render(
                 <AuthProvider>
                 <NavigationContainer>
                 <Stack.Navigator>
@@ -49,11 +49,11 @@ describe('Test Hooks', () => {
                 </AuthProvider>);
                 await waitFor(() => {
                 fireEvent.press(getByText(" Create Group "));
-                expect(1).toBe(1);
+                expect(asFragment).toMatchSnapshot();
                 });
                 })
     it('Toggle adding people', async () => {
-                    const {getAllByText} = render(
+                    const {getAllByText, asFragment} = render(
                     <AuthProvider>
                     <NavigationContainer>
                     <Stack.Navigator>
@@ -63,11 +63,11 @@ describe('Test Hooks', () => {
                     </AuthProvider>);
                     await waitFor(() => {
                     fireEvent.press(getAllByText("Add")[0]);
-                    expect(1).toBe(1);
+                    expect(asFragment).toMatchSnapshot();
                     });
                     await waitFor(() => {
                     fireEvent.press(getAllByText("Added")[0]);
-                    expect(1).toBe(1);
+                    expect(asFragment).toMatchSnapshot();
                     });
                     })
 
