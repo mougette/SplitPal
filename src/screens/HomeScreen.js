@@ -29,11 +29,12 @@ const HomeScreen = ({navigation}) => {
             name={item.FirstName+" "+item.LastName}
             balance={item.Balance.toString()}
             onPress = {() => Post("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/transaction",
-            JSON.stringify({sender: state.email,
+            JSON.stringify({sender: item.Email,
                             groupID: "NULL",
-                            transactions: [{item:"payment",
-                                            amount:item.balance,
-                                            usersOwed:item.Email}],}))}
+                            receiptDesc: "payment",
+                            transactions: [{'transDesc':"payment",
+                                            'price':item.Balance,
+                                            'users':[state.email]}]})).then(response => console.log(response))}
         ></Entry>
       </TouchableOpacity>
     );
