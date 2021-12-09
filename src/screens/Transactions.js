@@ -20,7 +20,6 @@ const Transactions = ({route, navigation}) => {
   },[navigation]);
 
   const renderItem = ( {item,index} ) => {
-    console.log(item);
     return (
         <Entry
             image='https://reactnative.dev/img/tiny_logo.png'
@@ -43,7 +42,7 @@ const Transactions = ({route, navigation}) => {
 
       <SafeAreaView style={styles.containerTop}>
         <FlatList
-            data={DATA}
+            data={DATA == "" ? DATA : DATA.splice(1)}
             renderItem={renderItem}
             keyExtractor = {(item) => item.transactionID}
             extraData={DATA}
