@@ -1,23 +1,53 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image } from 'react-native';
 import {Button, Input, Icon} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
+import {Get} from '../components/RestGet';
+import {Put} from '../components/RestPut';
 
 const Profile = ({navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
   const [changeButton, setChangeButton] = useState("Change Profile");
-  const {newFirstName, setNewFirstName} = useState('NULL');
-  const {newLastName, setNewLastName} = useState('NULL');
-  const {newPhone, setNewPhone} = useState('1234567890');
-  const {oldPassword, setOldPassword} = useState('');
-  const {newPassword1, setNewPassword1} = useState('');
-  const {newPassword2, setNewPassword2} = useState('');
+  const [newFirstName, setNewFirstName] = useState('NULL');
+  const [newLastName, setNewLastName] = useState('NULL');
+  const [newPhone, setNewPhone] = useState('1234567890');
+  const [DATA, setDATA] = useState("");
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      Get("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/profile","?email="+state.email)
+        .then(response => {
+          let resp = JSON.parse(response)
+          console.log(resp)
+          setNewFirstName(resp[0].firstName)
+          setNewLastName(resp[0].lastName)
+          setNewPhone(resp[0].phoneNumber)
+        });
+      });
+      return unsubscribe
+    }, [navigation]);
+
 
   function handleEditClick() {
     setDisabled(!disabled);
-    disabled == true ? setChangeButton("Save Profile") : setChangeButton("Change Profile")
+    if (disabled == true) {
+      setChangeButton("Save Profile")
+    }
+    else {
+      setChangeButton("Change Profile")
+      console.log("/PUT updating profile info")
+      Put("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/profile",
+                  JSON.stringify({
+                   userEmail: state.email,
+                   newEmail: state.email,
+                   firstName: newFirstName,
+                   lastName: newLastName,
+                   phoneNumber: newPhone,
+                   profilePic: "NULL",
+                 }))
+    }
   }
 
   return (
