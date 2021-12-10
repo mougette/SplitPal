@@ -44,7 +44,7 @@ const Transactions = ({route, navigation}) => {
         <FlatList
             data={DATA == "" ? DATA : DATA.splice(1)}
             renderItem={renderItem}
-            keyExtractor = {(item) => item.transactionID}
+            keyExtractor = {(item) => item.transactionID.toString()}
             extraData={DATA}
         />
       </SafeAreaView>
@@ -56,7 +56,7 @@ const Transactions = ({route, navigation}) => {
 const styles = StyleSheet.create({
   master: {
     flex: 1,
-
+    backgroundColor: '#87a1b6',
     alignItems: 'center',
   },
   header: {

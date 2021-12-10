@@ -92,7 +92,7 @@ function homeScreenFlow() {
     <HomeScreenStack.Navigator>
       <HomeScreenStack.Screen
         options={{headerShown: false}}
-        name="HomeScreen"
+        name="HomeScreenMain"
         component={HomeScreen}
       />
       <HomeScreenStack.Screen
@@ -110,7 +110,7 @@ function profileFlow() {
     <ProfileStack.Navigator>
       <ProfileStack.Screen
         options={{headerShown: false}}
-        name="Profile"
+        name="ProfileScreen"
         component={Profile}
       />
       <ProfileStack.Screen
@@ -123,7 +123,7 @@ function profileFlow() {
 }
 
 const Tab = createBottomTabNavigator();
-function homeFlow() {
+export function homeFlow() {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -136,9 +136,6 @@ function homeFlow() {
                     break;
                 case "Friends":
                     iconName = focused ? "person" : "person-outline";
-                    break;
-                case "Split":
-                    iconName = focused ? "wallet" : "wallet-outline";
                     break;
                 case "Groups":
                     iconName = focused ? "people" : "people-outline";
