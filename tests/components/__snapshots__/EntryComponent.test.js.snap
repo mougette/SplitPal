@@ -1,0 +1,345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Hooks negative 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#f5f5f5",
+      "borderRadius": 7,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginVertical": 8,
+      "padding": 10,
+      "width": 400,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "uri": undefined,
+      }
+    }
+    style={
+      Object {
+        "borderRadius": 30,
+        "height": 60,
+        "width": 60,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#bb2a2a",
+        "borderRadius": 7,
+        "borderWidth": 1,
+        "color": "#2196F3",
+        "fontSize": 20,
+        "marginLeft": 10,
+        "opacity": 1,
+        "overflow": "hidden",
+        "padding": 10,
+        "width": "30%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+        }
+      }
+    >
+      -86
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Test Hooks pending 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#f5f5f5",
+      "borderRadius": 7,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginVertical": 8,
+      "padding": 10,
+      "width": 400,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "uri": undefined,
+      }
+    }
+    style={
+      Object {
+        "borderRadius": 30,
+        "height": 60,
+        "width": 60,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "grey",
+        "borderRadius": 7,
+        "borderWidth": 1,
+        "color": "#2196F3",
+        "fontSize": 20,
+        "marginLeft": 10,
+        "opacity": 1,
+        "overflow": "hidden",
+        "padding": 10,
+        "width": "30%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+        }
+      }
+    >
+      Pending
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Test Hooks positive 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#f5f5f5",
+      "borderRadius": 7,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginVertical": 8,
+      "padding": 10,
+      "width": 400,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "uri": undefined,
+      }
+    }
+    style={
+      Object {
+        "borderRadius": 30,
+        "height": 60,
+        "width": 60,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#2abb42",
+        "borderRadius": 7,
+        "borderWidth": 1,
+        "color": "#2196F3",
+        "fontSize": 20,
+        "marginLeft": 10,
+        "opacity": 1,
+        "overflow": "hidden",
+        "padding": 10,
+        "width": "30%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+        }
+      }
+    >
+      20
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Test Hooks split 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#f5f5f5",
+      "borderRadius": 7,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginVertical": 8,
+      "padding": 10,
+      "width": 400,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "uri": undefined,
+      }
+    }
+    style={
+      Object {
+        "borderRadius": 30,
+        "height": 60,
+        "width": 60,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#2a56a9",
+        "borderRadius": 7,
+        "borderWidth": 1,
+        "color": "#2196F3",
+        "fontSize": 20,
+        "marginLeft": 10,
+        "opacity": 1,
+        "overflow": "hidden",
+        "padding": 10,
+        "width": "30%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 18,
+        }
+      }
+    >
+      Split
+    </Text>
+  </View>
+</View>
+`;

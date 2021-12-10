@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Split Tests Add and Remove buttons 1`] = `undefined`;
+
+exports[`Split Tests Add and Remove buttons 2`] = `undefined`;
+
+exports[`Split Tests Add entry and submit 1`] = `undefined`;
+
+exports[`Split Tests ReRender 1`] = `undefined`;

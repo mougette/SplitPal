@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Hooks Click Create Group 1`] = `undefined`;
+
+exports[`Test Hooks Render 1`] = `undefined`;
+
+exports[`Test Hooks Toggle adding people 1`] = `undefined`;
+
+exports[`Test Hooks Toggle adding people 2`] = `undefined`;

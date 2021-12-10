@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Hooks navigates on button press 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "paddingTop": 20,
+    }
+  }
+>
+  <TextInput
+    allowFontScaling={true}
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "backgroundColor": "white",
+        "borderRadius": 7,
+        "borderWidth": 1,
+        "padding": 10,
+        "width": "60%",
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "backgroundColor": "white",
+          "borderRadius": 7,
+          "borderWidth": 1,
+          "color": "#2196F3",
+          "fontSize": 20,
+          "marginLeft": 10,
+          "overflow": "hidden",
+          "padding": 10,
+        }
+      }
+    />
+  </View>
+</View>
+`;
