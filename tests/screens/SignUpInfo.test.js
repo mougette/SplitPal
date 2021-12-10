@@ -28,7 +28,7 @@ describe('Test Hooks', () => {
         json: () => Promise.resolve("Account Successfully Made"),
       })
       );
-        const {getByText} = render(
+        const {getByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -44,7 +44,7 @@ describe('Test Hooks', () => {
 
         await waitFor(() => {
                      fireEvent.press(getByText("Login"))
-                     expect(1).toBe(1);
+                     expect(asFragment).toMatchSnapshot()
                      })
         })
     it('SignUp Fail', async () => {
@@ -53,7 +53,7 @@ describe('Test Hooks', () => {
             json: () => Promise.resolve("Fail"),
           })
           );
-            const {getByText} = render(
+            const {getByText, asFragment} = render(
             <AuthProvider>
             <NavigationContainer>
             <Stack.Navigator>
@@ -69,7 +69,7 @@ describe('Test Hooks', () => {
 
             await waitFor(() => {
                          fireEvent.press(getByText("Login"))
-                         expect(1).toBe(1);
+                         expect(asFragment).toMatchSnapshot()
                          })
             })
 

@@ -67,7 +67,7 @@ describe('Split Tests', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
     it('Add and Remove buttons', async () => {
-        const {getByText} = render(
+        const {getByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -86,11 +86,11 @@ describe('Split Tests', () => {
         await waitFor(() => {
         fireEvent.press(getByText("+"));
         fireEvent.press(getByText("Remove"));
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot()
         })
         })
     it('Add and Remove buttons', async () => {
-            const {getByText} = render(
+            const {getByText, asFragment} = render(
             <AuthProvider>
             <NavigationContainer>
             <Stack.Navigator>
@@ -108,7 +108,7 @@ describe('Split Tests', () => {
             </AuthProvider>);
             await waitFor(() => {
             fireEvent.press(getByText("Use Camera"));
-            expect(1).toBe(1);
+            expect(asFragment).toMatchSnapshot()
             })
             })
 
@@ -135,7 +135,7 @@ describe('Split Tests', () => {
         fireEvent.changeText(screen.getAllByTestId("ItemName")[0], 'dresses')
         fireEvent.changeText(screen.getAllByTestId("ItemPrice")[0], '23')
         fireEvent.press(screen.getByText("Submit"));
-        expect(1).toBe(1);
+        expect(screen.asFragment).toMatchSnapshot()
         })
         })
     it('ReRender', async () => {
@@ -180,7 +180,7 @@ describe('Split Tests', () => {
                 );
 
         await waitFor(() => {
-        expect(1).toBe(1);
+        expect(screen.asFragment).toMatchSnapshot()
         })
         })
 });

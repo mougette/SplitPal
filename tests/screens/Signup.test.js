@@ -28,7 +28,7 @@ describe('Test Hooks', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
     it('SignUp', () => {
-    const {getByText} = render(
+    const {getByText, asFragment} = render(
     <AuthProvider>
     <NavigationContainer>
     <Stack.Navigator>
@@ -39,10 +39,10 @@ describe('Test Hooks', () => {
     </NavigationContainer>
     </AuthProvider>);
     fireEvent.press(getByText("Login"));
-    expect(1).toBe(1);
+    expect(asFragment).toMatchSnapshot()
     });
     it('SignUp to SignIn', () => {
-        const {getByText} = render(
+        const {getByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -52,7 +52,7 @@ describe('Test Hooks', () => {
         </Stack.Navigator>
         </NavigationContainer>
         </AuthProvider>);
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot()
         })
 
 

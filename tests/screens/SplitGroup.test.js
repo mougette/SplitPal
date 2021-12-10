@@ -28,7 +28,7 @@ describe('SplitGroup Tests', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
     it('Add and Remove buttons', async () => {
-        const {getAllByText} = render(
+        const {getAllByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -49,11 +49,11 @@ describe('SplitGroup Tests', () => {
         fireEvent.press(getAllByText("myself ")[0]);
         fireEvent.press(getAllByText("myself ")[0]);
         fireEvent.press(getAllByText("Remove")[0]);
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot()
         })
         })
 it('Add and Remove buttons', async () => {
-        const {getAllByText} = render(
+        const {getAllByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -71,7 +71,7 @@ it('Add and Remove buttons', async () => {
         </AuthProvider>);
         await waitFor(() => {
         fireEvent.press(getAllByText("Use Camera")[0]);
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot()
         })
         })
 
@@ -98,7 +98,7 @@ it('Add and Remove buttons', async () => {
         fireEvent.changeText(screen.getAllByTestId("ItemName")[0], 'dresses')
         fireEvent.changeText(screen.getAllByTestId("ItemPrice")[0], '23')
         fireEvent.press(screen.getByText("Submit"));
-        expect(1).toBe(1);
+        expect(screen.asFragment).toMatchSnapshot()
         })
         })
     it('ReRender', async () => {
@@ -143,7 +143,7 @@ it('Add and Remove buttons', async () => {
                 );
 
         await waitFor(() => {
-        expect(1).toBe(1);
+        expect(screen.asFragment).toMatchSnapshot()
         })
         })
 });

@@ -26,7 +26,7 @@ describe('Profile tests', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
     it('Profile', async () => {
-        const {getByText} = render(
+        const {getByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -38,10 +38,10 @@ describe('Profile tests', () => {
         fireEvent.press(getByText("Change Profile"))
         })
         fireEvent.press(getByText("Save Profile"))
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot();
         })
     it('Profile', async () => {
-            const {getByText} = render(
+            const {getByText, asFragment} = render(
             <AuthProvider>
             <NavigationContainer>
             <Stack.Navigator>
@@ -52,7 +52,7 @@ describe('Profile tests', () => {
             await waitFor(() => {
             fireEvent.press(getByText("Ready to Sign out?"))
             })
-            expect(1).toBe(1);
+            expect(asFragment).toMatchSnapshot();
             })
         });
 
