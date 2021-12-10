@@ -10,7 +10,6 @@ class Split extends Component {
     console.log(props.route.params[0])
     this.friend = props.route.params[0].item
     this.email = props.route.params[1].state.email
-    console.log(props.route.params[2] == "NULL" ? "test" : props.route.params[2])
     this.state = {
       textInput : [],
       inputData : []

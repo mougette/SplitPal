@@ -31,7 +31,7 @@ const ImageConfirm = ({ route, navigation}) => {
                 <Button title = "Confirm" onPress = {imageParse}/>
             </View>
             <View style={{height: 40,}}>
-                <Button title = "Retry" onPress = { () => navigation.navigate("CameraScreen"),{'item' : {item}} }/>
+                <Button title = "Retry" onPress = { () => navigation.navigate("CameraScreen",{'item' : {item}}) }/>
             </View>
             </View>
         </View>

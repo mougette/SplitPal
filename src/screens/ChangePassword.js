@@ -10,11 +10,6 @@ const ChangePassword = ({navigation}) => {
   const {newPassword1, setNewPassword1} = useState('');
   const {newPassword2, setNewPassword2} = useState('');
 
-  function handleEditClick() {
-    setDisabled(!disabled);
-    disabled == true ? setChangeButton("Save Profile") : setChangeButton("Change Profile")
-  }
-
   return (
     <View style={styles.master}>
       <SplitPalLogoComponent />

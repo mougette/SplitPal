@@ -17,8 +17,6 @@ const authReducer = (state, action) => {
         token: action.payload.token,
         email: action.payload.email,
       };
-    default:
-      return state;
   }
 };
 
