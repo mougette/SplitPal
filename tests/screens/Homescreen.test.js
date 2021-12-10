@@ -79,6 +79,20 @@ describe('Test Hooks', () => {
         expect(asFragment).toMatchSnapshot();
         })
         })
+    it('render', async () => {
+            const {getByText, asFragment} = render(
+            <AuthProvider>
+            <NavigationContainer>
+            <Stack.Navigator>
+            <Stack.Screen name="Homescreen" component={HomeScreen} />
+            </Stack.Navigator>
+            </NavigationContainer>
+            </AuthProvider>);
+            await waitFor(() => {
+            fireEvent.press(getByText("Sam Hogenson"))
+            expect(asFragment).toMatchSnapshot();
+            })
+            })
 
 
 });

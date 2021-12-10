@@ -4,7 +4,7 @@ import { fireEvent, render, screen, waitFor} from '@testing-library/react-native
 import {Provider as AuthProvider} from '../../src/context/AuthContext.js';
 import {Context as AuthContext} from '../../src/context/AuthContext';
 import {navigate} from '@reach/router'
-import App from '../../App'
+import App, {homeFlow} from '../../App'
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';

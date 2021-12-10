@@ -26,7 +26,7 @@ describe('Profile tests', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
     it('Profile', async () => {
-        const {getByText} = render(
+        const {getByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
@@ -35,7 +35,7 @@ describe('Profile tests', () => {
         </NavigationContainer>
         </AuthProvider>);
         await waitFor(() => {
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot();
         })})
 
 

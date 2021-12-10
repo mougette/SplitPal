@@ -89,6 +89,28 @@ describe('Split Tests', () => {
         expect(1).toBe(1);
         })
         })
+    it('Add and Remove buttons', async () => {
+            const {getByText} = render(
+            <AuthProvider>
+            <NavigationContainer>
+            <Stack.Navigator>
+            <Stack.Screen name="Split" component={Split} initialParams ={[
+                    {item: {
+                    FirstName: 'test',
+                    LastName: 'today',
+                    Email: 'testing@test.com',
+                    Balance: 'Split'
+                    }},
+                    {state:{email : "e@something.com"}},
+                    "NULL"]}/>
+            </Stack.Navigator>
+            </NavigationContainer>
+            </AuthProvider>);
+            await waitFor(() => {
+            fireEvent.press(getByText("Use Camera"));
+            expect(1).toBe(1);
+            })
+            })
 
     it('Add entry and submit', async () => {
         const screen = render(
@@ -110,6 +132,7 @@ describe('Split Tests', () => {
         await waitFor(() => {
         fireEvent.press(screen.getByText("+"));
         fireEvent.changeText(screen.getAllByTestId("ItemName")[0], 'dress')
+        fireEvent.changeText(screen.getAllByTestId("ItemName")[0], 'dresses')
         fireEvent.changeText(screen.getAllByTestId("ItemPrice")[0], '23')
         fireEvent.press(screen.getByText("Submit"));
         expect(1).toBe(1);

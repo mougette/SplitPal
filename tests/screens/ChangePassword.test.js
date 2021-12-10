@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { fireEvent, render, screen } from '@testing-library/react-native'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native'
 import {Provider as AuthProvider} from '../../src/context/AuthContext.js';
 import {Context as AuthContext} from '../../src/context/AuthContext';
 import {navigate} from '@reach/router'

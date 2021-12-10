@@ -47,7 +47,30 @@ describe('SplitGroup Tests', () => {
         await waitFor(() => {
         fireEvent.press(getAllByText("+")[0]);
         fireEvent.press(getAllByText("myself ")[0]);
+        fireEvent.press(getAllByText("myself ")[0]);
         fireEvent.press(getAllByText("Remove")[0]);
+        expect(1).toBe(1);
+        })
+        })
+it('Add and Remove buttons', async () => {
+        const {getAllByText} = render(
+        <AuthProvider>
+        <NavigationContainer>
+        <Stack.Navigator>
+        <Stack.Screen name="SplitGroup" component={SplitGroup} initialParams ={[
+                {item: {
+                FirstName: 'test',
+                LastName: 'today',
+                Email: 'testing@test.com',
+                Balance: 'Split'
+                }},
+                {state:{email : "e@something.com"}},
+                "NULL"]}/>
+        </Stack.Navigator>
+        </NavigationContainer>
+        </AuthProvider>);
+        await waitFor(() => {
+        fireEvent.press(getAllByText("Use Camera")[0]);
         expect(1).toBe(1);
         })
         })
@@ -72,6 +95,7 @@ describe('SplitGroup Tests', () => {
         await waitFor(() => {
         fireEvent.press(screen.getByText("+"));
         fireEvent.changeText(screen.getAllByTestId("ItemName")[0], 'dress')
+        fireEvent.changeText(screen.getAllByTestId("ItemName")[0], 'dresses')
         fireEvent.changeText(screen.getAllByTestId("ItemPrice")[0], '23')
         fireEvent.press(screen.getByText("Submit"));
         expect(1).toBe(1);

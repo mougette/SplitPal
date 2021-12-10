@@ -65,20 +65,45 @@ global.fetch = jest.fn(() =>
 describe('Image Confirm', () => {
     const test = jest.fn();
     const Stack = createBottomTabNavigator();
-    it('Render', async () => {
-        const {getByText} = render(
+    it('Select Confirm', async () => {
+        const {getByText, asFragment} = render(
         <AuthProvider>
         <NavigationContainer>
         <Stack.Navigator>
-        <Stack.Screen name="ImageConfirm" component={ImageConfirm} initialParams ={{itemEmail : "e@something.com"},{photo :{uri: 'https://reactnative.dev/img/tiny_logo.png'}}} />
+        <Stack.Screen name="ImageConfirm" component={ImageConfirm} initialParams ={{stack: "group"},{itemEmail : "e@something.com"},{photo :{uri: 'https://reactnative.dev/img/tiny_logo.png'}}} />
         </Stack.Navigator>
         </NavigationContainer>
         </AuthProvider>);
         await waitFor(() => {
         fireEvent.press(getByText("Confirm"))
-        fireEvent.press(getByText("Retry"))
-        expect(1).toBe(1);
+        expect(asFragment).toMatchSnapshot();
         })})
+        it('Select Confirm', async () => {
+            const {getByText, asFragment} = render(
+            <AuthProvider>
+            <NavigationContainer>
+            <Stack.Navigator>
+            <Stack.Screen name="ImageConfirm" component={ImageConfirm} initialParams ={{stack: "friend"},{itemEmail : "e@something.com"},{photo :{uri: 'https://reactnative.dev/img/tiny_logo.png'}}} />
+            </Stack.Navigator>
+            </NavigationContainer>
+            </AuthProvider>);
+            await waitFor(() => {
+            fireEvent.press(getByText("Confirm"))
+            expect(asFragment).toMatchSnapshot();
+            })})
+    it('Select Retry', async () => {
+            const {getByText, asFragment} = render(
+            <AuthProvider>
+            <NavigationContainer>
+            <Stack.Navigator>
+            <Stack.Screen name="ImageConfirm" component={ImageConfirm} initialParams ={{itemEmail : "e@something.com"},{photo :{uri: 'https://reactnative.dev/img/tiny_logo.png'}}} />
+            </Stack.Navigator>
+            </NavigationContainer>
+            </AuthProvider>);
+            await waitFor(() => {
+            fireEvent.press(getByText("Retry"))
+            expect(asFragment).toMatchSnapshot();
+            })})
 
 
 });
