@@ -64,7 +64,7 @@ class SplitGroup extends Component {
     textInput.push(<View  key = {index}><View style= {styles.row}>
     <TextInput style={styles.input}
       onChangeText={(text) => this.addValues(text, index, true)}
-      defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price}
+      defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].transDesc}
       testID="ItemName"/>
       <TextInput style={styles.input2}
             onChangeText={(text) => this.addValues(text, index, false)}
