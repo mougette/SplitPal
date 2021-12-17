@@ -3,12 +3,24 @@ import {View, Text, StyleSheet, Image } from 'react-native';
 import {Button, Input, Icon} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import SplitPalLogoComponent from '../components/SplitPalLogoComponent';
+import {Put} from '../components/RestPut';
 
 const ChangePassword = ({navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const {oldPassword, setOldPassword} = useState('');
   const {newPassword1, setNewPassword1} = useState('');
   const {newPassword2, setNewPassword2} = useState('');
+
+  function handleEditClick() {
+    console.log("updating password")
+    Put("https://wt9b6sq6k1.execute-api.us-east-2.amazonaws.com/Iteration_2/profile/changepassword",
+                JSON.stringify({
+                 userEmail: state.email,
+                 oldPassword: oldPassword,
+                 newPassword1: newPassword1,
+                 newPassword2: newPassword2,
+               }))
+  }
 
   return (
     <View style={styles.master}>
@@ -44,9 +56,9 @@ const ChangePassword = ({navigation}) => {
            secureTextEntry
            autoCapitalize="none"
          />
-      <Button onPress={console.log("Time to change password")}
+      <Button onPress={handleEditClick}
         title="Change Password" type="clear" />
-      <Button onPress={() => navigation.navigate("Profile")}
+      <Button onPress={() => navigation.navigate("ProfileScreen")}
           title="Back to Profile" type="clear" />
       <Button onPress={signout} title="Ready to Sign out?" type="clear" />
     </View>
