@@ -38,7 +38,7 @@ class SplitGroup extends Component {
         let dataArray = this.state.inputData;
         let owedArray = []
              dataArray.push({'transDesc': this.props.route.params[2].items[i-start][0],
-             'price': parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString(),
+             'price': parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')),
              'users' : owedArray});
              this.setState({
                inputData: dataArray
@@ -68,7 +68,7 @@ class SplitGroup extends Component {
       testID="ItemName"/>
       <TextInput style={styles.input2}
             onChangeText={(text) => this.addValues(text, index, false)}
-            defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price}
+            defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price.toString()}
             testID="ItemPrice"/>
       </View>
       <View style= {styles.row}>

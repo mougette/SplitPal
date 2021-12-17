@@ -24,7 +24,7 @@ class Split extends Component {
       let dataArray = this.state.inputData;
       let owedArray = [this.email, this.friend.Email]
            dataArray.push({'transDesc': this.props.route.params[2].items[i-start][0],
-           'price': parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')).toString(),
+           'price': parseFloat(this.props.route.params[2].items[i-start][1].replace(/\$|,/g, '')),
            'users' : owedArray});
            this.setState({
              inputData: dataArray
@@ -52,7 +52,7 @@ class Split extends Component {
       <TextInput style={styles.input2}
             testID="ItemPrice"
             onChangeText={(text) => this.addValues(text, index, false)}
-            defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price}/>
+            defaultValue={this.state.inputData[index] == undefined ? "" : this.state.inputData[index].price.toString()}/>
       </View>
       );
     this.setState({ textInput });
