@@ -7,9 +7,9 @@ import {Put} from '../components/RestPut';
 
 const ChangePassword = ({navigation}) => {
   const {state, signout} = useContext(AuthContext);
-  const {oldPassword, setOldPassword} = useState('');
-  const {newPassword1, setNewPassword1} = useState('');
-  const {newPassword2, setNewPassword2} = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword1, setNewPassword1] = useState('');
+  const [newPassword2, setNewPassword2] = useState('');
 
   function handleEditClick() {
     console.log("updating password")
@@ -20,6 +20,12 @@ const ChangePassword = ({navigation}) => {
                  newPassword1: newPassword1,
                  newPassword2: newPassword2,
                }))
+               console.log(JSON.stringify({
+                userEmail: state.email,
+                oldPassword: oldPassword,
+                newPassword1: newPassword1,
+                newPassword2: newPassword2,
+              }));
   }
 
   return (
